@@ -1,8 +1,10 @@
 require 'rubygems' if RUBY_VERSION < '1.9'
 require 'sinatra/base'
 require 'haml'
-#require File.dirname(__FILE__) + 'my_api_key.rb'
-require 'my_api_key'
+
+# You want your API key in a proxy call of some sort so it's not publicly visible.
+# I'm placing my actaul API key in a seperate file OUTSIDE of source control.
+load 'my_api_key.rb'
 
 class CotM < Sinatra::Base
 
