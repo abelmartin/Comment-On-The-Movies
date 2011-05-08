@@ -18,6 +18,7 @@ h1{
 
 #MovieTable{
   border: solid 1px grey;
+  width: 100%;
 }
 
 td, th{

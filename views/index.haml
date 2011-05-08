@@ -15,10 +15,18 @@
         %th Is Critic's Pick?
         %th NYT Reviewer
         %th # of Comments
+        %th
+          %select#MovieDateRange
+            / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
+            / If I'm wrong, please let me know.
+            - (-@current_month..-1).each do |month|
+              %option{:value => "#{Date.today.year}_#{month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year}"
+            - (-12..-1).each do |month|
+              %option{:value => "#{Date.today.year() - 1}_#{month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year() - 1}"
     
     :plain
       <script id="TMPMovieRows" type="text/x-jquery-tmpl">
-        <td class="first">${attributes.Title} <a class="gear_menu" href="#">gear</a></td>
+        <td>${attributes.Title}</td>
         <td>${attributes.Relevance}</td>
         <td>${attributes.Artist}</td>
         <td>${attributes.Tempo}</td>
@@ -53,6 +61,9 @@
 
     :javascript
       $(function(){
+        // Create an instance of the app
         window.COTM = new CommentOnTheMovies();
+
+        // Start the app
         window.COTM.start();
       });
