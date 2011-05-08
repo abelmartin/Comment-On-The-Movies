@@ -9,6 +9,12 @@ var CommentOnTheMovies = Backbone.Controller.extend({
 
   start: function(){
     // code here
+    $("#MovieDateRange").change(function(){
+      console.log( $(this).val() );
+      $.ajax({
+        url: "/proxy?year_month="+$(this).val()
+      });
+    });
     Backbone.history.start();
   },
 

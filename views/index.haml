@@ -20,9 +20,9 @@
             / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
             / If I'm wrong, please let me know.
             - (-@current_month..-1).each do |month|
-              %option{:value => "#{Date.today.year}_#{month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year}"
+              %option{:value => "#{Date.today.year}-#{"%02d" % month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year}"
             - (-12..-1).each do |month|
-              %option{:value => "#{Date.today.year() - 1}_#{month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year() - 1}"
+              %option{:value => "#{Date.today.year() - 1}-#{"%02d" % month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year() - 1}"
     
     :plain
       <script id="TMPMovieRows" type="text/x-jquery-tmpl">
@@ -54,6 +54,7 @@
     %script{:src => "javascripts/app/collections/comments.js"}
                                
     / [3] Views                
+    %script{:src => "javascripts/app/views/movie_table_row.js"}
     %script{:src => "javascripts/app/views/movie_table.js"}
 
     / [4] Controller - Just one per app.

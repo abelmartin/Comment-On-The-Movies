@@ -16,11 +16,29 @@ class CotM < Sinatra::Base
   end
 
   get '/proxy' do
+    # We take the value from our select control in the param string
+    # We'll construct the date range based on that
+
+    # Example response
+    year_month = params[:year_month] || "2011-05"
+    puts year_month
+
+    # The start of the month is ALWAYS 01
+    start_date = "#{year_month}-01"
+
+    # End of the month requires a little massaging
+    ymArray = year_month.split("-")
+    year = ymArray[0].to_i
+    month = ymArray[1].to_i
+
+    # Ruby has a ton of neat little quirks.  Here's an easy way to get the last day of a month
+    end_date = Date.new(year, month, -1)
+
     # Core URL
     api_url = "http://api.nytimes.com/svc/movies/v2/reviews/search.json?"
 
     # Your params
-    api_url += "&opening-date=#{params[:start_date]};#{params[:end_date]}"
+    api_url += "&opening-date=#{start_date};#{end_date}"
 
     # Default Sort by openning day
     api_url += "&order=by-opening-date"
