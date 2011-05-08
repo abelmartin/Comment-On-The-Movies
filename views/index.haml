@@ -2,9 +2,57 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title Comment on the Movies
+    %link{:href => "http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css", :media => "screen", :rel => "stylesheet"}/
     %link{:href => "main.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %h1
       Comment on the Movies
-    %div
-      ="My API key is #{@api_key}"
+    %table#MovieTable
+      %tr
+        %th Movie Name
+        %th Rating
+        %th Opening Day
+        %th Is Critic's Pick?
+        %th NYT Reviewer
+        %th # of Comments
+    
+    :plain
+      <script id="TMPMovieRows" type="text/x-jquery-tmpl">
+        <td class="first">${attributes.Title} <a class="gear_menu" href="#">gear</a></td>
+        <td>${attributes.Relevance}</td>
+        <td>${attributes.Artist}</td>
+        <td>${attributes.Tempo}</td>
+        <td>${attributes.Mood}</td>
+        <td>${attributes.Genre}</td>
+      </script>
+    
+
+    / We're going all CDN crazy with googleapis and cdnjs
+    / http://www.cdnjs.com has insane uptime and serves a TON of libraries across Amazon Cloudfront & Route 53 :)
+    / Required Libraries
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"}
+    %script{:src => "http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.5/underscore-min.js"}
+    %script{:src => "http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"}
+    %script{:src => "http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"}
+    %script{:src => "http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"}
+
+    / The backbone app scripts
+    / [1] Models
+    %script{:src => "javascripts/app/models/movie.js"}
+    %script{:src => "javascripts/app/models/comment.js"}
+                               
+    / [2] Collections          
+    %script{:src => "javascripts/app/collections/movies.js"}
+    %script{:src => "javascripts/app/collections/comments.js"}
+                               
+    / [3] Views                
+    %script{:src => "javascripts/app/views/movie_table.js"}
+
+    / [4] Controller - Just one per app.
+    %script{:src => "javascripts/app/controller.js"}
+
+    :javascript
+      $(function(){
+        window.COTM = new CommentOnTheMovies();
+        window.COTM.start();
+      });

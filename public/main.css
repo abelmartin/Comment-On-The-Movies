@@ -1,1 +1,26 @@
-h1{color: red;}
+body{
+  margin: 0px auto;
+  padding: 5px 20px;
+  text-align: left;
+  width: 1000px;
+}
+
+html{
+  text-align: center;
+}
+
+h1{
+  color: red;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#MovieTable{
+  border: solid 1px grey;
+}
+
+td, th{
+  border: solid 1px #888;
+  padding: 5px;
+}
