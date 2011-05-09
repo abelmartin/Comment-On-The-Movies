@@ -8,7 +8,7 @@
     %h1
       Comment on the Movies
     %table#MovieTable
-      %tr
+      %tr.header_row
         %th Movie Name
         %th Rating
         %th Opening Day
@@ -26,12 +26,12 @@
     
     :plain
       <script id="TMPMovieRows" type="text/x-jquery-tmpl">
-        <td>${attributes.Title}</td>
-        <td>${attributes.Relevance}</td>
-        <td>${attributes.Artist}</td>
-        <td>${attributes.Tempo}</td>
-        <td>${attributes.Mood}</td>
-        <td>${attributes.Genre}</td>
+        <td>${attributes.display_title}</td>
+        <td>${attributes.mpaa_rating}</td>
+        <td>${attributes.opening_date}</td>
+        <td>${attributes.critics_pick}</td>
+        <td>${attributes.byline}</td>
+        <td>0</td>
       </script>
     
 

@@ -19,8 +19,12 @@ class CotM < Sinatra::Base
     # We take the value from our select control in the param string
     # We'll construct the date range based on that
 
-    # Example response
-    year_month = params[:year_month] || "2011-05"
+    # Let's create a default value just incase we attempt to call 
+    # the API without the param we're expecting.
+    
+    default_date = "#{Date.today.year}-#{"%02d" % Date.today.month}"
+     
+    year_month = params[:year_month] || default_date
     puts year_month
 
     # The start of the month is ALWAYS 01
@@ -52,8 +56,7 @@ class CotM < Sinatra::Base
 
   end
 
-  # Adding declarations for static content, our style sheet and backbone app 
-
+  # Adding declarations for static content.  This includes our stylesheet and backbone app .js files
   set :public, File.dirname(__FILE__) + '/public'
 end
 
