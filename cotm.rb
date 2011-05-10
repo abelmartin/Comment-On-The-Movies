@@ -47,8 +47,9 @@ get '/proxy' do
   api_url += "&order=by-opening-date"
 
   # The API from 'my_api_key.rb'
-  api_url += "&api-key=#{API_KEY}"
-  
+  #api_url += "&api-key=#{API_KEY}"
+  api_url += "&api-key=#{ENV['API_KEY']}"
+   
   puts api_url
 
   Net::HTTP.get URI.parse(api_url)
