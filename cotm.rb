@@ -61,4 +61,4 @@ class CotM < Sinatra::Base
 end
 
 # Run This App
-CotM.run!
+# CotM.run!
