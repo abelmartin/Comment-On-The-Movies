@@ -1,5 +1,6 @@
 require 'rubygems' if RUBY_VERSION < '1.9'
-require 'sinatra/base'
+#require 'sinatra/base'
+require 'sinatra'
 require 'haml'
 require 'net/http'
 require 'date'
@@ -8,7 +9,7 @@ require 'date'
 # I'm placing my actaul API key in a seperate file OUTSIDE of source control.
 require './my_api_key'
 
-class CotM < Sinatra::Base
+#class CotM < Sinatra::Base
 
   get '/' do
     @current_month = Date.today.month
@@ -58,7 +59,7 @@ class CotM < Sinatra::Base
 
   # Adding declarations for static content.  This includes our stylesheet and backbone app .js files
   set :public, File.dirname(__FILE__) + '/public'
-end
+#end
 
 # Run This App
 # CotM.run!
