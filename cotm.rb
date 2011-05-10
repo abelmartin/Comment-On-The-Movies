@@ -7,7 +7,7 @@ require 'date'
 
 # You want your API key in a proxy call of some sort so it's not publicly visible.
 # I'm placing my actaul API key in a seperate file OUTSIDE of source control.
-require './my_api_key'
+#require './my_api_key'
 
 #class CotM < Sinatra::Base
 
