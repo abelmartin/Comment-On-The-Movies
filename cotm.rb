@@ -6,6 +6,8 @@ require 'date'
 
 # You want your API key in a proxy call of some sort so it's not publicly visible.
 # I'm placing my actaul API key in a seperate file OUTSIDE of source control.
+# I'm conditionally adding this line to keep Heroku happy.
+# In Heroku, you define values like api_keys as environment variables.
 require './my_api_key' if ENV['API_KEY'].nil?
 
 # Our Sinatra backend: 
@@ -15,8 +17,7 @@ get '/' do
 end
 
 get '/proxy' do
-  API_KEY = ENV['API_KEY'] unless ENV['API_KEY'].nil?
-
+  API_KEY = ENV['API_KEY']
   # We take the value from our select control in the param string
   # We'll construct the date range based on that
 
@@ -50,7 +51,7 @@ get '/proxy' do
 
   # The API from 'my_api_key.rb'
   #api_url += "&api-key=#{API_KEY}"
-  api_url += "&api-key=#{ENV['API_KEY']}"
+  api_url += "&api-key=#{API_KEY}"
    
   puts api_url
 
