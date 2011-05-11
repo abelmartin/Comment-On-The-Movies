@@ -6,7 +6,7 @@ require 'date'
 
 # You want your API key in a proxy call of some sort so it's not publicly visible.
 # I'm placing my actaul API key in a seperate file OUTSIDE of source control.
-# require './my_api_key'
+require './my_api_key' if ENV['API_KEY'].nil?
 
 # Our Sinatra backend: 
 get '/' do
@@ -15,6 +15,8 @@ get '/' do
 end
 
 get '/proxy' do
+  API_KEY = ENV['API_KEY'] unless ENV['API_KEY'].nil?
+
   # We take the value from our select control in the param string
   # We'll construct the date range based on that
 
