@@ -24,7 +24,9 @@ get '/' do
 
   while curr_monday.year > dd.year - 2
     # Ruby get's upset without the parens in this case.
-    @weeks.push( {:label => "#{curr_monday} to #{curr_sunday}", :value => "#{curr_monday}--#{curr_sunday}"} )
+    #label = "#{curr_monday.strftime('%B %Y')}: #{curr_monday.month}/#{curr_monday.day} to #{curr_sunday.month}/#{curr_sunday.day}"
+    label = "#{curr_monday.year}: #{curr_monday.strftime('%B')} #{curr_monday.day} to #{curr_sunday.strftime('%B')} #{curr_sunday.day}"
+    @weeks.push( {:label => label, :value => "#{curr_monday}--#{curr_sunday}"} )
 
     curr_monday = curr_monday.advance :weeks => -1
     curr_sunday = curr_sunday.advance :weeks => -1
