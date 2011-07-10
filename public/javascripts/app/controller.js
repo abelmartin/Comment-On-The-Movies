@@ -8,15 +8,11 @@ var CommentOnTheMovies = Backbone.Controller.extend({
   initialize: function(){
     // The app starts here.
     if(this.movie_table_view === null){
-      var movieCol = new Movies();
-      this.movie_table_view = new MovieTableView({collection: movieCol});
+      this.movie_table_view = new MovieTableView();
     }
   },
 
   start: function(){
-    // This lets us update the movie table view
-    this.movie_table_view.collection.fetch();
-
     //This kicks off the hash routing which really gives the app it's power.
     Backbone.history.start();
 
@@ -29,6 +25,11 @@ var CommentOnTheMovies = Backbone.Controller.extend({
   },
 
   index: function(){
+    // This lets us update the movie table view
+    console.log("We hit the index action!");
+    console.log( $("#MovieDateRange").val() );
+    this.movie_table_view.collection.week = $("#MovieDateRange").val();
+    this.movie_table_view.collection.fetch();
   },
 
   movie: function(movie_id){

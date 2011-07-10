@@ -4,6 +4,8 @@ var MovieTableView = Backbone.View.extend({
 
   initialize: function(options){
     _.bindAll(this, 'render');
+
+    this.collection = new Movies();
     this.collection.bind('all', this.render);
 
     return this;
@@ -16,7 +18,8 @@ var MovieTableView = Backbone.View.extend({
   dateRangeChanged: function(e){
       /*console.log( this );*/
       /*console.log( e );*/
-      this.collection.year_month = $(e.target).val();
+      console.log( $(e.target).val() );
+      this.collection.week = $(e.target).val();
       this.collection.fetch();
   },
 

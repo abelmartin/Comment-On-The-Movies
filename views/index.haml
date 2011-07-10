@@ -2,7 +2,8 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title Comment on the Movies
-    %link{:href => "http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css", :media => "screen", :rel => "stylesheet"}/
+    %link{:href => "http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css", | 
+          :media => "screen", :rel => "stylesheet"}/
     %link{:href => "main.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %h1
@@ -19,31 +20,34 @@
           %select#MovieDateRange
             / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
             / If I'm wrong, please let me know.
-            - (-@current_month..-1).each do |month|
-              %option{:value => "#{Date.today.year}-#{"%02d" % month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year}"
-            - (-12..-1).each do |month|
-              %option{:value => "#{Date.today.year() - 1}-#{"%02d" % month.abs}"}= "#{Date::MONTHNAMES[month.abs]} #{Date.today.year() - 1}"
+            - @weeks.each do |week|
+              %option{:value => week[:value]}= week[:label]
     
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
-      %td ${attributes.display_title}
+      %td 
+        ${attributes.display_title}
       %td ${attributes.mpaa_rating}
       %td ${attributes.opening_date}
       %td ${attributes.critics_pick}
       %td ${attributes.byline}
       %td 0
 
+    %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
+      .movie_title ${attributes.display_title}
+      .summary ${attributes.summary_short}
+
     :javascript
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-8689104-5']);
       _gaq.push(['_trackPageview']);
 
-      $(function() {
+      (function() {
         var ga = document.createElement('script'); 
         ga.type = 'text/javascript'; 
         ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      });
+      })();
 
     / We're going all CDN crazy with googleapis and cdnjs
     / http://www.cdnjs.com has insane uptime and serves a TON of libraries across Amazon Cloudfront & Route 53 :)

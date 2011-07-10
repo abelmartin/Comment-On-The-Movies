@@ -1,10 +1,11 @@
 var Movies = Backbone.Collection.extend({
+  week: "",
+  model: Movie,
   url: function(){
     // We build the proxy url to accomodate any proxy URL you may need.
-    return COTM.proxy_root + "?year_month="+this.year_month;
+    console.log ("LOG: The movie collection has the following week:" + this.week);
+    return COTM.proxy_root + "?week="+this.week;
   },
-  year_month: "2011-05",
-  model: Movie,
   parse: function(resp){
     return resp.results;
   }
