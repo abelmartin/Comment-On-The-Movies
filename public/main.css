@@ -5,10 +5,6 @@ body{
   width: 1000px;
 }
 
-html{
-  text-align: center;
-}
-
 h1{
   color: red;
   font-size: 1.5em;
@@ -16,12 +12,36 @@ h1{
   margin-bottom: 10px;
 }
 
-#MovieTable{
-  border: solid 1px grey;
-  width: 100%;
+html{
+  text-align: center;
 }
 
 td, th{
   border: solid 1px #888;
   padding: 5px;
+}
+
+#DateSpan{
+  color: #A00;
+  font-size:14px;
+  font-weight: bold;
+}
+
+#EmptyMessage{
+  display: none;
+}
+
+#EmptyMessage, #MovieTable{
+  margin-top: 15px;
+}
+
+#MovieTable{
+  border: solid 1px grey;
+  display: none;
+  width: 100%;
+}
+
+#WOTY{
+  font-size:17px;
+  font-weight: bold;
 }

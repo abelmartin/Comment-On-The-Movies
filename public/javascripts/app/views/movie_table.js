@@ -1,6 +1,6 @@
 var MovieTableView = Backbone.View.extend({
   // Here we bind our view to the ID in the markup. 
-  el: $("#MovieTable"),
+  el: $("#MovieTableContainer"),
 
   initialize: function(options){
     _.bindAll(this, 'render');
@@ -29,12 +29,22 @@ var MovieTableView = Backbone.View.extend({
     // Remove all the rows but the header
     this.el.find("tr.movie_row").remove();
 
-    // We instantiate a new instance of the MovieRowView for each row.
-    _.each(vw.collection.models, function(movie){
-      var row = new MovieTableRowView({model: movie});
-      var filled_row = $( row.render().el );
-      vw.el.append( filled_row );
-    });
+    if( this.collection.isEmpty() ){
+      $("#MovieTable").hide();
+      $("#EmptyMessage").show();
+      var movie_date_label = $("#MovieDateRange :selected").html();
+      $("#DateSpan").html( movie_date_label );
+    }
+    else{
+      $("#MovieTable").show();
+      $("#EmptyMessage").hide();
+      // We instantiate a new instance of the MovieRowView for each row.
+      _.each(vw.collection.models, function(movie){
+        var row = new MovieTableRowView({model: movie});
+        var filled_row = $( row.render().el );
+        vw.el.find("#MovieTable").append( filled_row );
+      });
+    }
     
     return this;
   }

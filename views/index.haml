@@ -8,20 +8,28 @@
   %body
     %h1
       Comment on the Movies
-    %table#MovieTable
-      %tr.header_row
-        %th Movie Name
-        %th Rating
-        %th Opening Day
-        %th Is Critic's Pick?
-        %th NYT Reviewer
-        %th # of Comments
-        %th
-          %select#MovieDateRange
-            / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
-            / If I'm wrong, please let me know.
-            - @weeks.each do |week|
-              %option{:value => week[:value]}= week[:label]
+    #MovieTableContainer
+      %span#WOTY Week of the Year:
+      %select#MovieDateRange
+        / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
+        / If I'm wrong, please let me know.
+        - @weeks.each do |week|
+          %option{:value => week[:value]}= week[:label]
+      %table#MovieTable
+        %tr.header_row
+          %th Movie Name
+          %th Rating
+          %th Opening Day
+          %th Is Critic's Pick?
+          %th NYT Reviewer
+          %th # of Comments
+      #EmptyMessage
+        %p
+          There are no movies available for this date range: 
+          %span#DateSpan
+        %p
+          Try changing to a new date range.
+
     
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
       %td 
@@ -31,10 +39,6 @@
       %td ${attributes.critics_pick}
       %td ${attributes.byline}
       %td 0
-
-    %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
-      .movie_title ${attributes.display_title}
-      .summary ${attributes.summary_short}
 
     :javascript
       var _gaq = _gaq || [];
