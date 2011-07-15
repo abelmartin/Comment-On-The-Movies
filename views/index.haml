@@ -15,6 +15,7 @@
         / If I'm wrong, please let me know.
         - @weeks.each do |week|
           %option{:value => week[:value]}= week[:label]
+      %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
       %table#MovieTable
         %tr.header_row
           %th Movie Name

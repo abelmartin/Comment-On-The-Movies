@@ -21,6 +21,12 @@ td, th{
   padding: 5px;
 }
 
+th{
+  font-size: 16px; 
+  font-weight: bold;
+  padding: 10px;
+}
+
 #DateSpan{
   color: #A00;
   font-size:14px;
@@ -33,6 +39,10 @@ td, th{
 
 #EmptyMessage, #MovieTable{
   margin-top: 15px;
+}
+
+#LoadingImage{
+  display: none;
 }
 
 #MovieTable{

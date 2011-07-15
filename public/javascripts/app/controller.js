@@ -26,14 +26,18 @@ var CommentOnTheMovies = Backbone.Controller.extend({
 
   index: function(){
     // This lets us update the movie table view
-    console.log("We hit the index action!");
-    console.log( $("#MovieDateRange").val() );
+    // console.log("We hit the index action!");
+    // console.log( $("#MovieDateRange").val() );
     this.movie_table_view.collection.week = $("#MovieDateRange").val();
     this.movie_table_view.collection.fetch();
   },
 
   movie: function(movie_id){
     // code here
+  },
+
+  toggleLoadingImage: function(){
+    $("#LoadingImage").toggle();
   }
 
 });

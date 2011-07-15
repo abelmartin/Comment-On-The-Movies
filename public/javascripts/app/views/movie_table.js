@@ -18,7 +18,7 @@ var MovieTableView = Backbone.View.extend({
   dateRangeChanged: function(e){
       /*console.log( this );*/
       /*console.log( e );*/
-      console.log( $(e.target).val() );
+      // console.log( $(e.target).val() );
       this.collection.week = $(e.target).val();
       this.collection.fetch();
   },
@@ -34,7 +34,11 @@ var MovieTableView = Backbone.View.extend({
       $("#EmptyMessage").show();
       var movie_date_label = $("#MovieDateRange :selected").html();
       $("#DateSpan").html( movie_date_label );
+
+      // Now we'll re-toggle loading image.
+      COTM.toggleLoadingImage();
     }
+
     else{
       $("#MovieTable").show();
       $("#EmptyMessage").hide();
@@ -44,8 +48,11 @@ var MovieTableView = Backbone.View.extend({
         var filled_row = $( row.render().el );
         vw.el.find("#MovieTable").append( filled_row );
       });
+
+      // Now we'll re-toggle loading image.
+      COTM.toggleLoadingImage();
     }
-    
+
     return this;
   }
 });
