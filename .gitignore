@@ -1,4 +1,4 @@
 *.swp
-.swo
+*.swo
 *.swn
 my_api_key.rb

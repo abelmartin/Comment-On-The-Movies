@@ -27,6 +27,15 @@ th{
   padding: 10px;
 }
 
+.next_week_link{
+  float: right;
+}
+
+.pagination{
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
 #DateSpan{
   color: #A00;
   font-size:14px;

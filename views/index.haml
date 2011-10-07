@@ -2,8 +2,7 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title Comment on the Movies
-    %link{:href => "http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css", | 
-          :media => "screen", :rel => "stylesheet"}/
+    %link{:href => "http://github.com/necolas/normalize.css", :media => "screen", :rel => "stylesheet"}/
     %link{:href => "main.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %h1
@@ -16,6 +15,9 @@
         - @weeks.each do |week|
           %option{:value => week[:value]}= week[:label]
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
+      .pagination
+        %a.next_week_link{:href => '#'} Next Week
+        %a.prev_week_link{:href => '#'} Previous Week
       %table#MovieTable
         %tr.header_row
           %th Movie Name
@@ -24,6 +26,9 @@
           %th Is Critic's Pick?
           %th NYT Reviewer
           %th # of Comments
+      .pagination
+        %a.next_week_link{:href => '#'} Next Week
+        %a.prev_week_link{:href => '#'} Previous Week
       #EmptyMessage
         %p
           There are no movies available for this date range: 
@@ -39,7 +44,7 @@
       %td ${attributes.opening_date}
       %td ${attributes.critics_pick}
       %td ${attributes.byline}
-      %td 0
+      %td ${COTM.helper.getCommentCount(attributes.nyt_movie_id)}
 
     :javascript
       var _gaq = _gaq || [];
@@ -57,11 +62,10 @@
     / We're going all CDN crazy with googleapis and cdnjs
     / http://www.cdnjs.com has insane uptime and serves a TON of libraries across Amazon Cloudfront & Route 53 :)
     / Required Libraries
-    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"}
-    %script{:src => "http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.5/underscore-min.js"}
-    %script{:src => "http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"}
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"}
+    %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.1.7/underscore-min.js"}
+    %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.5.3/backbone-min.js"}
     %script{:src => "http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"}
-    %script{:src => "http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"}
 
     / The backbone app scripts
     / [1] Models

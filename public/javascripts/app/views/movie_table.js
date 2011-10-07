@@ -3,7 +3,7 @@ var MovieTableView = Backbone.View.extend({
   el: $("#MovieTableContainer"),
 
   initialize: function(options){
-    _.bindAll(this, 'render');
+    _.bindAll(this, 'render', 'loadNextWeek', 'loadPrevWeek');
 
     this.collection = new Movies();
     this.collection.bind('all', this.render);
@@ -12,15 +12,22 @@ var MovieTableView = Backbone.View.extend({
   },
 
   events: {
-    "change #MovieDateRange" : "dateRangeChanged"
+    "change #MovieDateRange" : "dateRangeChanged",
+    "click .next_week_link"  : "loadNextWeek",
+    "click .prev_week_link"  : "loadPrevWeek"
   },
 
   dateRangeChanged: function(e){
-      /*console.log( this );*/
-      /*console.log( e );*/
-      // console.log( $(e.target).val() );
-      this.collection.week = $(e.target).val();
-      this.collection.fetch();
+    this.collection.week = $(e.target).val();
+    this.collection.fetch();
+  },
+
+  loadNextWeek: function(e){
+    e.preventDefault();
+  },
+
+  loadPrevWeek: function(e){
+    e.preventDefault();
   },
 
   render: function(){
@@ -52,6 +59,13 @@ var MovieTableView = Backbone.View.extend({
       // Now we'll re-toggle loading image.
       COTM.toggleLoadingImage();
     }
+
+  //porkloafking
+  //
+    COTM.navigate("/"+this.collection.week);
+
+    // Update the links in the prev & next links.
+    // Remove the preventDefault() from above.
 
     return this;
   }
