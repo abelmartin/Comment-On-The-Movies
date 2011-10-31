@@ -45,13 +45,21 @@ th{
   float: right;
 }
 
-.pagination{
-  font-weight: bold;
-  margin: 10px 0px;
+.poster_thumbnail{
+  float: left;
+  width: 62px;
+}
+
+.summary_holder{
+  margin-left: 75px;
 }
 
 h4.title{
   margin: 0px 0px 5px 0px;
+}
+
+th.title{
+  width: 500px;
 }
 
 #DateSpan{

@@ -23,29 +23,33 @@
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
       %table#MovieTable
         %tr.header_row
-          %th Movie Name
-          %th Rating
-          %th Runtime
-          %th Freshness
-          %th Opening Day
-          %th # of Comments
+          %th.title Movie
+          %th.freshness Freshness
+          %th.opening_day Opening Day
+          %th.comment_count # of Comments
       #EmptyMessage
         While it's possible there are no movies in this list, it's more likely there was an API error.
     
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
       %td 
-        %h4.title ${attributes.title}
-        %img.thumbnail{:src => "${attributes.posters.thumbnail}", :title => "thumbnail"}
-      %td ${attributes.mpaa_rating}
-      %td ${attributes.runtime} Mins
+        %img.poster_thumbnail{:src => "${attributes.posters.thumbnail}", :title => "thumbnail"}
+        .summary_holder
+          %h4.title ${attributes.title} (${attributes.mpaa_rating}, ${attributes.runtime} Mins)
+          .critics_consensus ${attributes.critics_consensus}
       %td
-        {{if attributes.ratings.critics_rating.toLowerCase() === 'fresh'}}
+        {{if attributes.ratings.critics_rating}}
+        {{if attributes.ratings.critics_rating.toLowerCase().match(/fresh/)}}
         .rt_icon_fresh
         {{else}}
         .rt_icon_rotten
         {{/if}}
+        {{/if}}
+        {{if attributes.ratings.critics_score >= 0}}
         ${attributes.ratings.critics_score}
         ${attributes.ratings.critics_rating}
+        {{else}}
+        Not Rated Yet
+        {{/if}}
       %td ${attributes.release_dates.theater}
       %td ${COTM.helper.getCommentCount(attributes.nyt_movie_id)}
 
