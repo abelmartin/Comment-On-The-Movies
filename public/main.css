@@ -27,6 +27,20 @@ th{
   padding: 10px;
 }
 
+.rt_icon_fresh{
+  background: no-repeat url('http://images.rottentomatoescdn.com/images/redesign/icons-v2.png') -287px -48px;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+}
+
+.rt_icon_rotten{
+  background: no-repeat url('http://images.rottentomatoescdn.com/images/redesign/icons-v2.png') -287px -95px;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+}
+
 .next_week_link{
   float: right;
 }

@@ -38,7 +38,12 @@
         %img.thumbnail{:src => "${attributes.posters.thumbnail}", :title => "thumbnail"}
       %td ${attributes.mpaa_rating}
       %td ${attributes.runtime} Mins
-      %td 
+      %td
+        {{if attributes.ratings.critics_rating.toLowerCase() === 'fresh'}}
+        .rt_icon_fresh
+        {{else}}
+        .rt_icon_rotten
+        {{/if}}
         ${attributes.ratings.critics_score}
         ${attributes.ratings.critics_rating}
       %td ${attributes.release_dates.theater}
