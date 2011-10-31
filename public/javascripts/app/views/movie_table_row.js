@@ -16,7 +16,8 @@ var MovieTableRowView = Backbone.View.extend({
   },
 
   rowAction: function(e){
-    alert("You Double-Clicked on the row for '" + this.model.get("display_title") + "'!");
+    alert("You Double-Clicked on the row for '" + 
+          this.model.get("title") + "'!");
   },
 
   render: function(){

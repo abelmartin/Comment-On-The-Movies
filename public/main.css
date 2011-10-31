@@ -60,6 +60,18 @@ th{
   width: 100%;
 }
 
+#PoweredByDiv{
+  float: right;
+  text-align: right;
+}
+
+#PoweredByLink{
+  background: no-repeat url('http://images.rottentomatoescdn.com/images/redesign/rtbyflix.png?v=19012011');
+  display: inline-block;
+  height: 62px;
+  width: 147px
+}
+
 #WOTY{
   font-size:17px;
   font-weight: bold;

@@ -13,54 +13,46 @@ require './my_api_key' if ENV['API_KEY'].nil?
 
 # Our Sinatra backend: 
 get '/' do
-  #@current_month = Date.today.month
-  dd = Date.today
-
-  @weeks = []
-  curr_monday = dd.beginning_of_week
-  curr_sunday = dd.end_of_week
-
-  aa = Array.new
-
-  while curr_monday.year > dd.year - 2
-    # Ruby get's upset without the parens in this case.
-    #label = "#{curr_monday.strftime('%B %Y')}: #{curr_monday.month}/#{curr_monday.day} to #{curr_sunday.month}/#{curr_sunday.day}"
-    label = "#{curr_monday.year}: #{curr_monday.strftime('%B')} #{curr_monday.day} to #{curr_sunday.strftime('%B')} #{curr_sunday.day}"
-    @weeks.push( {:label => label, :value => "#{curr_monday}--#{curr_sunday}"} )
-
-    curr_monday = curr_monday.advance :weeks => -1
-    curr_sunday = curr_sunday.advance :weeks => -1
-  end
-
-  puts "First Week: #{@weeks.first}"
-  puts "Last Week: #{@weeks.last}"
-
   haml :index
 end
 
 get '/proxy' do
   API_KEY = ENV['API_KEY']
-  # We take the value from our select control in the param string
-  # We'll construct the date range based on that
+  # Most of our searches will start with this prefix.
+  api_url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/'
 
-  # The NYT Movie API won't return an entire month's worth of data.
-  # Core URL
-  api_url = "http://api.nytimes.com/svc/movies/v2/reviews/search.json?"
+  case params['action']
+    when 'box_office'
+      api_url += "box_office.json"
+    when 'current'
+      api_url += "in_theaters.json"
+    when 'opening'
+      api_url += "opening.json"
+    when 'upcoming'
+      api_url += "upcoming.json"
+    when 'search'
+      # Searching the API happens on a different URL.
+      if params['query']
+        api_url = "api.rottentomatoes.com/api/public/v1.0/movies.json"
+      else
+        api_url = nil
+      end
+    else
+      api_url = nil
+  end
 
-  week = params[:week].gsub /--/, ';' 
+  if api_url
+    api_url += "?apikey=#{API_KEY}&limit=50"
 
-  api_url += "&opening-date=#{week}"
+    # We only need to add the 
+    api_url += "&q=#{params['query']}" if params['action'] == 'search'
 
-  # Default Sort by openning day
-  api_url += "&order=by-opening-date"
+    puts "We're calling the api with this url: #{api_url}"
+    Net::HTTP.get URI.parse(api_url)
+  end 
 
-  # The API from 'my_api_key.rb'
-  api_url += "&api-key=#{API_KEY}"
-   
-  puts api_url
-
-  Net::HTTP.get URI.parse(api_url)
 end
 
-# Adding declarations for static content.  This includes our stylesheet and backbone app .js files
+# Adding declarations for static content.  
+# This includes our stylesheet and backbone app .js files
 set :public, File.dirname(__FILE__) + '/public'

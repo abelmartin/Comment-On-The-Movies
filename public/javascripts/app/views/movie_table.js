@@ -3,7 +3,7 @@ var MovieTableView = Backbone.View.extend({
   el: $("#MovieTableContainer"),
 
   initialize: function(options){
-    _.bindAll(this, 'render', 'loadNextWeek', 'loadPrevWeek');
+    _.bindAll(this, 'render', 'listChanged');
 
     this.collection = new Movies();
     this.collection.bind('all', this.render);
@@ -12,26 +12,17 @@ var MovieTableView = Backbone.View.extend({
   },
 
   events: {
-    "change #MovieDateRange" : "dateRangeChanged",
-    "click .next_week_link"  : "loadNextWeek",
-    "click .prev_week_link"  : "loadPrevWeek"
+    "change #MovieList" : "listChanged"
   },
 
-  dateRangeChanged: function(e){
-    this.collection.week = $(e.target).val();
+  listChanged: function(e){
+    this.collection.list = $(e.target).val();
     this.collection.fetch();
-  },
-
-  loadNextWeek: function(e){
-    e.preventDefault();
-  },
-
-  loadPrevWeek: function(e){
-    e.preventDefault();
+    COTM.logEvent("The Movie List changed.  We called for new data from the API");
   },
 
   render: function(){
-    var vw = this;
+    var that = this;
 
     // Remove all the rows but the header
     this.el.find("tr.movie_row").remove();
@@ -40,32 +31,24 @@ var MovieTableView = Backbone.View.extend({
       $("#MovieTable").hide();
       $("#EmptyMessage").show();
       var movie_date_label = $("#MovieDateRange :selected").html();
-      $("#DateSpan").html( movie_date_label );
-
-      // Now we'll re-toggle loading image.
-      COTM.toggleLoadingImage();
+      COTM.logEvent("There was no data from the last API call");
     }
-
     else{
       $("#MovieTable").show();
       $("#EmptyMessage").hide();
+      COTM.logEvent("We recieved data from the last API call");
       // We instantiate a new instance of the MovieRowView for each row.
-      _.each(vw.collection.models, function(movie){
+      _.each(that.collection.models, function(movie){
         var row = new MovieTableRowView({model: movie});
         var filled_row = $( row.render().el );
-        vw.el.find("#MovieTable").append( filled_row );
+        that.el.find("#MovieTable").append( filled_row );
       });
-
-      // Now we'll re-toggle loading image.
-      COTM.toggleLoadingImage();
     }
 
-  //porkloafking
-  //
-    COTM.navigate("/"+this.collection.week);
+    // Now we'll hide loading image.
+    $("#LoadingImage").hide();
 
-    // Update the links in the prev & next links.
-    // Remove the preventDefault() from above.
+    COTM.navigate("#!list/"+this.collection.list);
 
     return this;
   }

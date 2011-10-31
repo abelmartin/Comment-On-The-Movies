@@ -1,49 +1,39 @@
 !!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
+    #PoweredByDiv
+      Powered By 
+      %a#PoweredByLink{:href => "http://developer.rottentomatoes.com/", :target => '_blank'}
     %title Comment on the Movies
     %link{:href => "http://github.com/necolas/normalize.css", :media => "screen", :rel => "stylesheet"}/
     %link{:href => "main.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %h1
-      Comment on the Movies
+      %a{:href => "/"}Comment on the Movies
     #MovieTableContainer
-      %span#WOTY Week of the Year:
-      %select#MovieDateRange
+      %span#WOTY Movie List Type:
+      %select#MovieList
         / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
         / If I'm wrong, please let me know.
-        - @weeks.each do |week|
-          %option{:value => week[:value]}= week[:label]
+        %option{:value => 'box_office'} Box Office 
+        %option{:value => 'current'} In Theaters
+        %option{:value => 'opening'} Opening
+        %option{:value => 'upcoming'} Upcoming Movies
+
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
-      .pagination
-        %a.next_week_link{:href => '#'} Next Week
-        %a.prev_week_link{:href => '#'} Previous Week
       %table#MovieTable
         %tr.header_row
           %th Movie Name
           %th Rating
           %th Opening Day
-          %th Is Critic's Pick?
-          %th NYT Reviewer
           %th # of Comments
-      .pagination
-        %a.next_week_link{:href => '#'} Next Week
-        %a.prev_week_link{:href => '#'} Previous Week
       #EmptyMessage
-        %p
-          There are no movies available for this date range: 
-          %span#DateSpan
-        %p
-          Try changing to a new date range.
-
+        While it's possible there are no movies in this list, it's more likely there was an API error.
     
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
-      %td 
-        ${attributes.display_title}
+      %td ${attributes.title}
       %td ${attributes.mpaa_rating}
       %td ${attributes.opening_date}
-      %td ${attributes.critics_pick}
-      %td ${attributes.byline}
       %td ${COTM.helper.getCommentCount(attributes.nyt_movie_id)}
 
     :javascript
@@ -80,7 +70,7 @@
     %script{:src => "javascripts/app/views/movie_table_row.js"}
     %script{:src => "javascripts/app/views/movie_table.js"}
 
-    / [4] Controller - Just one per app.
+    / [4] Router - Just one per app.
     %script{:src => "javascripts/app/router.js"}
 
     :javascript

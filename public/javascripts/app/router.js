@@ -4,41 +4,66 @@ var CommentOnTheMovies = Backbone.Router.extend({
   // This way we have one place to reference it.
   proxy_root: "/proxy",
 
+  debug: true,
+
   helper: {
     getCommentCount: function(movie_id){
       return 5;
     }
   },
 
-  initialize: function(){
-    // The app starts here.
-    if(this.movie_table_view === null){
-      this.movie_table_view = new MovieTableView();
+  debugOn: function(){
+
+    //We don't attempt to debug unless the app want to AND the broswer supports 'console' logging.
+    return (this.debug && (typeof console  !== "undefined"));
+  },
+
+  logEvent: function(ev, obj){
+
+    //Nothing happens unless debugging is turned on.
+    if(this.debugOn()){
+
+      // Every event logs it's datestamp
+      if(typeof ev === 'string'){
+        console.log( (new Date()).toTimeString() + " - CURRENT EVENT: " + ev);
+      }
+
+      if(obj){
+        console.log( (new Date()).toTimeString() + " - LOGGING OBJECT");
+        console.log(obj);
+      }
+
+      // Just a nice terminiating line.
+      console.log("-----");
     }
   },
 
   start: function(){
     //This kicks off the hash routing which really gives the app it's power.
+    this.movie_table_view = new MovieTableView();
     Backbone.history.start();
+    this.logEvent("EVENT: We loaded the BACKBONE APP::START FUNCTION");
     return this;
   },
 
   routes: {
-    ""                : "index",
-    "search/:week"    : "index_with_week",
-    "movie/:movie_id" : "movie"
+    ""                  : "index",
+    "!"                 : "index",
+    "!list/:list_name"  : "list",
+    "!movie/:movie_id"  : "movie"
   },
 
   index: function(){
-    // This lets us update the movie table view
-    this.movie_table_view.collection.week = $("#MovieDateRange").val();
-    this.movie_table_view.collection.fetch();
+    //Let's redirect users to the box_office view if they hit the home view
+    this.logEvent("EVENT: We loaded the INDEX view");
+    this.logEvent("EVENT: We should load the following URL:" + window.location.host + "#!list/box_office");
+    window.location = "http://" + window.location.host + "#!list/box_office";
   },
 
-  index_with_week: function(week){
-    this.movie_table_view.collection.week = week;
+  list: function(list_name){
+    // This lets us update the movie table view
+    this.logEvent("EVENT: We loaded the LIST view");
     this.movie_table_view.collection.fetch();
-    $("#MovieDateRange").val( week );
   },
 
   movie: function(movie_id){

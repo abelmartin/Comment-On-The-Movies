@@ -1,13 +1,16 @@
 var Movies = Backbone.Collection.extend({
-  week: "",
+  //We default to the 'box_office' list
+  list: 'box_office',
   model: Movie,
   url: function(){
     // We build the proxy url to accomodate any proxy URL you may need.
-    // console.log ("LOG: The movie collection has the following week:" + this.week);
+    // Fire off the loading image
     COTM.toggleLoadingImage();
-    return COTM.proxy_root + "?week="+this.week;
+
+    // This way, we call our proxy to fill our movie collection
+    return COTM.proxy_root + "?action="+this.list;
   },
   parse: function(resp){
-    return resp.results;
+    return resp.movies;
   }
 });
