@@ -8,6 +8,11 @@ var MovieTableRowView = Backbone.View.extend({
   initialize: function(){
     _.bindAll(this, 'render');
     this.model.bind('all', this.render);
+
+    // It is handy to reference the view the model is in.
+    // It's also important to pass the 'silent:true' option
+    // otherwise you'll be stuck in an endless loop
+    this.model.set({view: this},{silent: true});
     return this;
   },
 

@@ -23,6 +23,7 @@ var MovieTableView = Backbone.View.extend({
 
   render: function(){
     var that = this;
+    var row_holder = this.make('div');
 
     // Remove all the rows but the header
     this.el.find("tr.movie_row").remove();
@@ -38,11 +39,14 @@ var MovieTableView = Backbone.View.extend({
       $("#EmptyMessage").hide();
       COTM.logEvent("We recieved data from the last API call");
       // We instantiate a new instance of the MovieRowView for each row.
+      // You never want to append nodes to the DOM iteratively.
+      // It's always best to insert them as one action.
       _.each(that.collection.models, function(movie){
         var row = new MovieTableRowView({model: movie});
-        var filled_row = $( row.render().el );
-        that.el.find("#MovieTable").append( filled_row );
+        $(row_holder).append( $( row.render().el ) );
       });
+      that.el.find("#MovieTable").append( $(row_holder).html() );
+
     }
 
     // Now we'll hide loading image.

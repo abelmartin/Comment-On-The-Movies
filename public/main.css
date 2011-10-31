@@ -36,6 +36,10 @@ th{
   margin: 10px 0px;
 }
 
+h4.title{
+  margin: 0px 0px 5px 0px;
+}
+
 #DateSpan{
   color: #A00;
   font-size:14px;

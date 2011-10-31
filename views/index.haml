@@ -25,15 +25,23 @@
         %tr.header_row
           %th Movie Name
           %th Rating
+          %th Runtime
+          %th Freshness
           %th Opening Day
           %th # of Comments
       #EmptyMessage
         While it's possible there are no movies in this list, it's more likely there was an API error.
     
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
-      %td ${attributes.title}
+      %td 
+        %h4.title ${attributes.title}
+        %img.thumbnail{:src => "${attributes.posters.thumbnail}", :title => "thumbnail"}
       %td ${attributes.mpaa_rating}
-      %td ${attributes.opening_date}
+      %td ${attributes.runtime} Mins
+      %td 
+        ${attributes.ratings.critics_score}
+        ${attributes.ratings.critics_rating}
+      %td ${attributes.release_dates.theater}
       %td ${COTM.helper.getCommentCount(attributes.nyt_movie_id)}
 
     :javascript
