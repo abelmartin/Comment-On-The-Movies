@@ -23,10 +23,14 @@
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
       %table#MovieTable
         %tr.header_row
-          %th.title Movie
-          %th.freshness Freshness
-          %th.opening_day Opening Day
-          %th.comment_count # of Comments
+          %th.title 
+            %a{:href => '#'} Movie
+          %th.freshness 
+            %a{:href => '#'} Freshness
+          %th.opening_day 
+            %a{:href => '#'} Opening Day
+          %th.comment_count 
+            %a{:href => '#'} # of Comments
       #EmptyMessage
         While it's possible there are no movies in this list, it's more likely there was an API error.
     
@@ -37,6 +41,7 @@
           %h4.title ${attributes.title} (${attributes.mpaa_rating}, ${attributes.runtime} Mins)
           .critics_consensus ${attributes.critics_consensus}
       %td
+        / If we have a rating, we should use one of our icons
         {{if attributes.ratings.critics_rating}}
         {{if attributes.ratings.critics_rating.toLowerCase().match(/fresh/)}}
         .rt_icon_fresh
@@ -44,14 +49,17 @@
         .rt_icon_rotten
         {{/if}}
         {{/if}}
+
+        / When there no rating number, the score is -1
         {{if attributes.ratings.critics_score >= 0}}
         ${attributes.ratings.critics_score}
         ${attributes.ratings.critics_rating}
         {{else}}
         Not Rated Yet
         {{/if}}
+
       %td ${attributes.release_dates.theater}
-      %td ${COTM.helper.getCommentCount(attributes.nyt_movie_id)}
+      %td ${attributes.comment_count}
 
     :javascript
       var _gaq = _gaq || [];
@@ -76,6 +84,7 @@
 
     / The backbone app scripts
     / [1] Models
+    %script{:src => "javascripts/app/models/sort_manager.js"}
     %script{:src => "javascripts/app/models/movie.js"}
     %script{:src => "javascripts/app/models/comment.js"}
                                

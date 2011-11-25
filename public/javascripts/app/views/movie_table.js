@@ -3,16 +3,36 @@ var MovieTableView = Backbone.View.extend({
   el: $("#MovieTableContainer"),
 
   initialize: function(options){
-    _.bindAll(this, 'render', 'listChanged');
+    _.bindAll(this, 
+              'render', 
+              'listChanged', 
+              'changeSortAndDirection', 
+              'applyNewSort');
 
     this.collection = new Movies();
     this.collection.bind('all', this.render);
+
+    //We'll create a property that's also a Backbone Model.
+    //This way we'll get the events when we change the table's sort.
+    this.collection.sort_man.bind('change', this.applyNewSort);
 
     return this;
   },
 
   events: {
-    "change #MovieList" : "listChanged"
+    "change #MovieList" : "listChanged",
+    "click th a"        : "changeSortAndDirection"
+  },
+
+  changeSortAndDirection: function(e){
+    var parent_header;
+    parent_header = $(e.target).parent();
+    COTM.logEvent("Clicked a header", parent_header);
+    this.collection.sort_man.set({column: $(parent_header).attr('class')});
+  },
+
+  applyNewSort: function(){
+    this.collection.sort();
   },
 
   listChanged: function(e){
@@ -42,6 +62,9 @@ var MovieTableView = Backbone.View.extend({
       // You never want to append nodes to the DOM iteratively.
       // It's always best to insert them as one action.
       _.each(that.collection.models, function(movie){
+        //Let's set the comment count on the model silently.
+          /*movie.set({comment_count: COTM.helper.getCommentCount(movie.id)},*/
+        /*{silent:true});*/
         var row = new MovieTableRowView({model: movie});
         $(row_holder).append( $( row.render().el ) );
       });

@@ -8,7 +8,16 @@ var CommentOnTheMovies = Backbone.Router.extend({
 
   helper: {
     getCommentCount: function(movie_id){
-      return 5;
+      return 0;
+    },
+
+    inverse_string: function(str){
+      //http://stackoverflow.com/questions/5636812/sorting-strings-in-reverse-order-with-backbone-js/5639070#5639070
+      var reverse_str = String.fromCharCode.apply(String,
+          _.map(str.split(""), function (c) {
+              return 0xffff - c.charCodeAt();
+          }));
+      return reverse_str;
     }
   },
 
