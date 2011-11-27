@@ -9,7 +9,8 @@ var Movies = Backbone.Collection.extend({
     this.sort_man = new SortManager();
     this.comparator = function(film){
       if (film){
-      return that.sort_man.comp_value(film);
+        var tt = that.sort_man.comp_value(film);
+        return tt;
       }
     }
   },

@@ -28,7 +28,8 @@ var MovieTableView = Backbone.View.extend({
     var parent_header;
     parent_header = $(e.target).parent();
     COTM.logEvent("Clicked a header", parent_header);
-    this.collection.sort_man.set({column: $(parent_header).attr('class')});
+    COTM.logEvent( parent_header.attr('class') );
+    this.collection.sort_man.applyNewSort( parent_header.attr('class') );
   },
 
   applyNewSort: function(){
