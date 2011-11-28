@@ -36,30 +36,28 @@
     
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
       %td 
-        %img.poster_thumbnail{:src => "${attributes.posters.thumbnail}", :title => "thumbnail"}
+        %img.poster_thumbnail{:src => "{{attributes.posters.thumbnail}}", :title => "thumbnail"}
         .summary_holder
-          %h4.title ${attributes.title} (${attributes.mpaa_rating}, ${attributes.runtime} Mins)
-          .critics_consensus ${attributes.critics_consensus}
+          %h4.title {{attributes.title}} ({{attributes.mpaa_rating}}, {{attributes.runtime}} Mins)
+          .critics_consensus {{attributes.critics_consensus}}
       %td
         / If we have a rating, we should use one of our icons
-        {{if attributes.ratings.critics_rating}}
-        {{if attributes.ratings.critics_rating.toLowerCase().match(/fresh/)}}
-        .rt_icon_fresh
-        {{else}}
-        .rt_icon_rotten
-        {{/if}}
-        {{/if}}
+        {{#attributes.ratings.critics_rating}}
+        %div{:class => "{{freshness_class}}"}
+        {{/attributes.ratings.critics_rating}}
 
         / When there no rating number, the score is -1
-        {{if attributes.ratings.critics_score >= 0}}
-        ${attributes.ratings.critics_score}
-        ${attributes.ratings.critics_rating}
-        {{else}}
-        Not Rated Yet
-        {{/if}}
+        {{#has_score}}
+        {{attributes.ratings.critics_score}}
+        {{attributes.ratings.critics_rating}}
+        {{/has_score}}
 
-      %td ${attributes.release_dates.theater}
-      %td ${attributes.comment_count}
+        {{^has_score}}
+        Not Rated Yet
+        {{/has_score}}
+
+      %td {{attributes.release_dates.theater}}
+      %td {{attributes.comment_count}}
 
     :javascript
       var _gaq = _gaq || [];
@@ -80,8 +78,9 @@
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
     %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.2.2/underscore-min.js"}
     %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.5.3/backbone-min.js"}
-    %script{:src => "http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"}
+    / %script{:src => "http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"}
     %script{:src => "/javascripts/req/amplify.min.js"}
+    %script{:src => "/javascripts/req/jquery.mustache.js"}
 
     / The backbone app scripts
     / [1] Models

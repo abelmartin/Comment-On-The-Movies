@@ -3,7 +3,7 @@ var MovieTableRowView = Backbone.View.extend({
 
   className: "movie_row",
 
-  rowTemplate: $("#TMPMovieRows").template(),
+  rowTemplate: $("#TMPMovieRows").html(),
 
   initialize: function(){
     _.bindAll(this, 'render');
@@ -28,7 +28,7 @@ var MovieTableRowView = Backbone.View.extend({
   render: function(){
 
     // This uses the compiled tempate for our rendering
-    $(this.el).html( $.tmpl( this.rowTemplate, this.model ) );
+    $(this.el).html( $.mustache( this.rowTemplate, this.model ) );
 
     return this;
   }
