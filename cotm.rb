@@ -55,4 +55,4 @@ end
 
 # Adding declarations for static content.  
 # This includes our stylesheet and backbone app .js files
-set :public, File.dirname(__FILE__) + '/public'
+set :public_folder, File.dirname(__FILE__) + '/public'
