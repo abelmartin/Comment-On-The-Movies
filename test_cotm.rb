@@ -2,6 +2,14 @@ require './cotm'
 require 'capybara'
 require 'capybara/dsl'
 require 'test/unit'
+require 'vcr'
+require 'webmock'
+require 'webmock/test_unit'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'fixtures/vcr_cassettes'
+  c.hook_into :webmock
+end
 
 class TestCOTM < Test::Unit::TestCase
   include Capybara::DSL

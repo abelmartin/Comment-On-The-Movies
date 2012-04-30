@@ -1,5 +1,4 @@
 var CommentOnTheMovies = Backbone.Router.extend({
-  movie_table_view: null,
   // We'll set the proxy URL in the controller.
   // This way we have one place to reference it.
   proxy_root: "/proxy",
@@ -41,14 +40,17 @@ var CommentOnTheMovies = Backbone.Router.extend({
   start: function(){
     this.logEvent("EVENT: We loaded the BACKBONE APP::START FUNCTION");
 
-    // We'll instantiate the MovieTableView that we'll need.
+    // We'll instantiate the collections of movies that we'll be binding events to.
+    this.movies = new Movies();
+
+    // We instantiate & call render() because the controls view only gets rendered once.
+    this.list_controls_view = new ListControlsView().render();
+
+    // The bound events will hand the rendering for us so we can simply instantiate.
     this.movie_table_view = new MovieTableView();
 
     //This kicks off the hash routing which really gives the app it's power.
     Backbone.history.start();
-
-    //It's always good to return the object in question when possible.
-    return this;
   },
 
   routes: {
@@ -62,13 +64,14 @@ var CommentOnTheMovies = Backbone.Router.extend({
     //Let's redirect users to the box_office view if they hit the home view
     this.logEvent("EVENT: We loaded the INDEX view");
     this.logEvent("EVENT: We should load the following URL:" + window.location.host + "#!list/box_office");
-    window.location = "http://" + window.location.host + "#!list/box_office";
+    this.navigate("!list/box_office", {trigger: true, replace: true});
   },
 
   list: function(list_name){
     // This lets us update the movie table view
-    this.logEvent("EVENT: We loaded the LIST view");
-    this.movie_table_view.collection.fetch();
+    this.logEvent("EVENT: We're loading a new list: " + list_name);
+    this.movies.list = list_name;
+    this.movies.fetch();
   },
 
   movie: function(movie_id){

@@ -1,4 +1,6 @@
 var SortManager = Backbone.Model.extend({
+  //Sorting in backbone apps is a little annoying
+  //To deal with that, we have this handy sort manager
   defaults: {
     direction: null,
     column: null,
