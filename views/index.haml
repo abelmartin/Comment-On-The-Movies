@@ -47,29 +47,30 @@
             Comments
 
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
-      %td 
+      %td.title
         %img.poster_thumbnail{:src => "{{attributes.posters.thumbnail}}", :title => "thumbnail"}
         .summary_holder
           %h4.title {{attributes.title}} ({{attributes.mpaa_rating}}, {{attributes.runtime}} Mins)
           .critics_consensus {{attributes.critics_consensus}}
-      %td
+      %td.freshness
         / If we have a rating, we should use one of our icons
         {{#attributes.ratings.critics_rating}}
         %div{:class => "{{freshness_class}}"}
         {{/attributes.ratings.critics_rating}}
 
         / When there no rating number, the score is -1
-        {{#has_score}}
-        {{attributes.ratings.critics_score}}
-        {{attributes.ratings.critics_rating}}
-        {{/has_score}}
+        %div.freshness_score
+          {{#has_score}}
+          {{attributes.ratings.critics_score}}
+          {{attributes.ratings.critics_rating}}
+          {{/has_score}}
 
-        {{^has_score}}
-        Not Rated Yet
-        {{/has_score}}
+          {{^has_score}}
+          Not Rated Yet
+          {{/has_score}}
 
-      %td {{attributes.release_dates.theater}}
-      %td {{attributes.comment_count}}
+      %td.opening_day {{attributes.release_dates.theater}}
+      %td.comment_count {{attributes.comment_count}}
 
     :javascript
       var _gaq = _gaq || [];

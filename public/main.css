@@ -1,4 +1,6 @@
 body{
+  /*From http://subtlepatterns.com/?p=1058*/
+  background: url('/images/bg-snow.png');
   margin: 0px auto;
   padding: 5px 20px;
   text-align: left;
@@ -16,12 +18,39 @@ html{
   text-align: center;
 }
 
+table{
+  background-color: #fff;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-topright: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-spacing: 0px;
+}
+
 td, th{
-  border: solid 1px #888;
+  border-left: solid 1px #bbb;
   padding: 5px;
 }
 
+td{
+  border-bottom: solid 1px #eee;
+  border-top: solid 1px #aaa;
+  vertical-align: top;
+}
+
+tr{
+}
+
 th{
+  background-color: #F1F1F1;
+  background-image: -ms-linear-gradient(top,#F9F9F9,#ECECEC);
+  background-image: -moz-linear-gradient(top,#F9F9F9,#ECECEC);
+  background-image: -o-linear-gradient(top,#F9F9F9,#ECECEC);
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#F9F9F9),to(#ECECEC));
+  background-image: -webkit-linear-gradient(top,#F9F9F9,#ECECEC);
+  background-image: linear-gradient(top,#F9F9F9,#ECECEC);
   font-size: 20px; 
   font-weight: bold;
   padding: 5px;
@@ -31,16 +60,27 @@ th a{
   text-decoration: none;
 }
 
+.freshness_score{
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+.movie_row.alt{
+  background-color: #fbfbfb;
+}
+
 .rt_icon_fresh{
   background: no-repeat url('http://images.rottentomatoescdn.com/images/redesign/icons-v2.png') -287px -48px;
-  display: inline-block;
+  /*display: inline-block;*/
+  float: left;
   height: 25px;
   width: 25px;
 }
 
 .rt_icon_rotten{
   background: no-repeat url('http://images.rottentomatoescdn.com/images/redesign/icons-v2.png') -287px -95px;
-  display: inline-block;
+  /*display: inline-block;*/
+  float: left;
   height: 25px;
   width: 25px;
 }
@@ -62,8 +102,25 @@ h4.title{
   margin: 0px 0px 5px 0px;
 }
 
-th.title{
+td.opening_day, td.comment_count{
+  padding-top: 10px;
+}
+
+td.title, th.title{
+  border-left: none;
   width: 500px;
+}
+
+th.title{
+  -webkit-border-top-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  border-top-left-radius: 3px;
+}
+
+th.comment_count{
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  border-top-right-radius: 3px;
 }
 
 #DateSpan{

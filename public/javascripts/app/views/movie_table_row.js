@@ -6,18 +6,14 @@ var MovieTableRowView = Backbone.View.extend({
   rowTemplate: $("#TMPMovieRows").html(),
 
   initialize: function(){
-    _.bindAll(this, 'render');
+    _.bindAll(this, 'render', 'rowAction');
     this.model.bind('all', this.render);
 
-    // It is handy to reference the view the model is in.
-    // It's also important to pass the 'silent:true' option
-    // otherwise you'll be stuck in an endless loop
-    this.model.set({view: this},{silent: true});
     return this;
   },
 
   events:{ 
-    "dblclick td" : "rowAction"
+    "click td" : "rowAction"
   },
 
   rowAction: function(e){
@@ -28,7 +24,11 @@ var MovieTableRowView = Backbone.View.extend({
   render: function(){
 
     // This uses the compiled tempate for our rendering
-    $(this.el).html( $.mustache( this.rowTemplate, this.model ) );
+    this.$el.html( $.mustache( this.rowTemplate, this.model ) );
+
+    if(COTM.movies.indexOf(this.model) % 2 === 1){
+      this.$el.addClass('alt');
+    }
 
     return this;
   }
