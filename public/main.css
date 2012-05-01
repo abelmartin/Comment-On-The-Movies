@@ -22,9 +22,13 @@ td, th{
 }
 
 th{
-  font-size: 16px; 
+  font-size: 20px; 
   font-weight: bold;
-  padding: 10px;
+  padding: 5px;
+}
+
+th a{
+  text-decoration: none;
 }
 
 .rt_icon_fresh{

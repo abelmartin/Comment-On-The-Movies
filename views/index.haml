@@ -7,6 +7,7 @@
     %title Comment on the Movies
     %link{:href => "http://github.com/necolas/normalize.css", :media => "screen", :rel => "stylesheet"}/
     %link{:href => "main.css", :media => "screen", :rel => "stylesheet"}/
+    %link{:href => "font-awesome.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %h1#PageTitle
       %a{:href => "/"}Comment on the Movies
@@ -29,13 +30,21 @@
     %script#TMPMovieTable{ :type => "text/x-jquery-tmpl"}
       %tr.header_row
         %th.title 
-          %a{:href => '#'} Movie
+          %a{:href => '#'} 
+            %i.icon-film
+            Movie
         %th.freshness 
-          %a{:href => '#'} Freshness
+          %a{:href => '#'} 
+            %i.icon-asterisk
+            Freshness
         %th.opening_day 
-          %a{:href => '#'} Opening Day
+          %a{:href => '#'} 
+            %i.icon-calendar
+            Opening Day
         %th.comment_count 
-          %a{:href => '#'} # of Comments
+          %a{:href => '#'} 
+            %i.icon-comments
+            Comments
 
     %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
       %td 

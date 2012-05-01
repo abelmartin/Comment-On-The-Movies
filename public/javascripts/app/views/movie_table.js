@@ -40,7 +40,7 @@ var MovieTableView = Backbone.View.extend({
   render: function(){
     var that = this;
     //This resets the contents of the movie table
-    this.$el.html( $.mustache( this.template ) );
+    this.$el.html( $.mustache( this.template, this.collection.sort_man ) );
     var row_holder = this.make('div');
 
     if( this.collection.isEmpty() ){
