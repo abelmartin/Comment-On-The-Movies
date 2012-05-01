@@ -26,10 +26,11 @@ var MovieTableView = Backbone.View.extend({
 
   changeSortAndDirection: function(e){
     var parent_header;
+    e.preventDefault();
     parent_header = $(e.target).parent();
     COTM.logEvent("Clicked a header", parent_header);
     COTM.logEvent( parent_header.attr('class') );
-    this.collection.sort_man.applyNewSort( parent_header.attr('class') );
+    this.collection.sort_man.set({column: parent_header.attr('class')});
   },
 
   applyNewSort: function(){

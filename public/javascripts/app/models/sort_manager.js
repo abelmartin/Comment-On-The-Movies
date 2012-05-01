@@ -7,8 +7,13 @@ var SortManager = Backbone.Model.extend({
     old_column: null
   },
 
-  applyNewSort: function(cur_col){
-    var old_col, srt_dir, ret_val; 
+  initialize: function(){
+    this.bind('change', this.applyNewSort);
+  },
+
+  applyNewSort: function(){
+    var old_col, srt_dir, ret_val, cur_col;
+    cur_col = this.get('column');
     old_col = this.get('old_column');
     srt_dir = this.get('direction');
 
@@ -23,7 +28,6 @@ var SortManager = Backbone.Model.extend({
     }
 
     //Now we'll preserve the currently clicked column.
-    this.set({column: cur_col}, {silent:true});
     this.set({direction: srt_dir}, {silent:true});
   },
 
