@@ -1,3 +1,12 @@
+a{
+  color: #21759B;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #D54E21;
+}
+
 body{
   /*From http://subtlepatterns.com/?p=1058*/
   background: url('/images/bg-snow.png');
@@ -40,9 +49,6 @@ td{
   vertical-align: top;
 }
 
-tr{
-}
-
 th{
   background-color: #F1F1F1;
   background-image: -ms-linear-gradient(top,#F9F9F9,#ECECEC);
@@ -51,13 +57,12 @@ th{
   background-image: -webkit-gradient(linear,left top,left bottom,from(#F9F9F9),to(#ECECEC));
   background-image: -webkit-linear-gradient(top,#F9F9F9,#ECECEC);
   background-image: linear-gradient(top,#F9F9F9,#ECECEC);
-  font-size: 20px; 
-  font-weight: bold;
-  padding: 5px;
 }
 
 th a{
-  text-decoration: none;
+  display: block;
+  font-size: 20px; 
+  font-weight: bold;
 }
 
 .freshness_score{
@@ -108,7 +113,7 @@ td.opening_day, td.comment_count{
 
 td.title, th.title{
   border-left: none;
-  width: 500px;
+  width: 450px;
 }
 
 th.title{
