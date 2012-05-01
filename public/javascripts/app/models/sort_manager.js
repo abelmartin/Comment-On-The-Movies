@@ -8,6 +8,7 @@ var SortManager = Backbone.Model.extend({
   },
 
   initialize: function(){
+    //This is the FIRST action bound to the "sort_man" change event
     this.bind('change', this.applyNewSort);
   },
 

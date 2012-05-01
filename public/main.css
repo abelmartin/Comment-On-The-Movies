@@ -65,6 +65,18 @@ th a{
   font-weight: bold;
 }
 
+a i.icon-chevron-down, a i.icon-chevron-up{
+  display: none;
+}
+
+th.desc i.icon-chevron-down{
+  display: inline-block;
+}
+
+th.asc i.icon-chevron-up{
+  display: inline-block;
+}
+
 .freshness_score{
   margin-left: 30px;
   margin-top: 5px;

@@ -15,6 +15,7 @@ var MovieTableView = Backbone.View.extend({
 
     //We'll create a property that's also a Backbone Model.
     //This way we'll get the events when we change the table's sort.
+    //This is the SECOND action bound to the "sort_man" change event
     this.collection.sort_man.bind('change', this.applyNewSort);
 
     $("#MovieTableContainer").append(this.$el);
@@ -25,12 +26,14 @@ var MovieTableView = Backbone.View.extend({
   },
 
   changeSortAndDirection: function(e){
-    var parent_header;
+    var parent_header, parent_column;
     e.preventDefault();
-    parent_header = $(e.target).parent();
+    parent_header = $(e.target).parents("th");
     COTM.logEvent("Clicked a header", parent_header);
-    COTM.logEvent( parent_header.attr('class') );
-    this.collection.sort_man.set({column: parent_header.attr('class')});
+    parent_column = parent_header.attr('class'); 
+    COTM.logEvent( parent_column );
+    parent_column = $.trim( parent_column.replace(/asc|dsec/, '') );
+    this.collection.sort_man.set({column: parent_column});
   },
 
   applyNewSort: function(){
@@ -39,8 +42,19 @@ var MovieTableView = Backbone.View.extend({
 
   render: function(){
     var that = this;
+    var sman = this.collection.sort_man;
+
     //This resets the contents of the movie table
-    this.$el.html( $.mustache( this.template, this.collection.sort_man ) );
+    this.$el.html( $.mustache( this.template ) );
+
+    COTM.logEvent('SMAN COLUMN: ' + sman.get('column') + ' SMAN DIRECTION: ' + sman.get('direction'));
+
+    $("th", this.$el).each(function(idx){
+      if($(this).hasClass(sman.get('column'))){
+        $(this).addClass(sman.get('direction'));
+      }
+    });
+
     var row_holder = this.make('div');
 
     if( this.collection.isEmpty() ){
