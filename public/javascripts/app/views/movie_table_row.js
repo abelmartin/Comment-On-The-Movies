@@ -3,28 +3,37 @@ var MovieTableRowView = Backbone.View.extend({
 
   className: "movie_row",
 
-  rowTemplate: $("#TMPMovieRows").html(),
+  template: $("#TMPMovieRows").html(),
 
   initialize: function(){
-    _.bindAll(this, 'render', 'rowAction');
-    this.model.bind('all', this.render);
+    _.bindAll(this, 
+              'render', 
+              'setMovieDetailState',
+              'openMovieDetails');
+    // this.model.bind('all', this.render);
+    this.model.bind('change:show_details', this.openMovieDetails);
 
     return this;
   },
 
   events:{ 
-    "click td" : "rowAction"
+    "click a.display_comments" : "setMovieDetailState"
   },
 
-  rowAction: function(e){
-    alert("You Double-Clicked on the row for '" + 
-          this.model.get("title") + "'!");
+  openMovieDetails: function(){
+    COTM.logEvent("Would have opened the detail view");
+  },
+
+  setMovieDetailState: function(e){
+    e.preventDefault();
+    COTM.logEvent("Setting 'show_details'");
+    this.model.set({show_details: true});
   },
 
   render: function(){
 
     // This uses the compiled tempate for our rendering
-    this.$el.html( $.mustache( this.rowTemplate, this.model ) );
+    this.$el.html( $.mustache( this.template, this.model ) );
 
     if(COTM.movies.indexOf(this.model) % 2 === 1){
       this.$el.addClass('alt');

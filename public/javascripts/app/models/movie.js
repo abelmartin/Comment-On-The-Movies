@@ -1,6 +1,7 @@
 var Movie = Backbone.Model.extend({
   defaults: {
-    comment_count: 0
+    comment_count: 0,
+    show_details: false
   },
 
   freshness_class: function(){

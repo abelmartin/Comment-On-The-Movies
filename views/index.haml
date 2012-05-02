@@ -18,15 +18,18 @@
       %a{:href => "/"}
         %i.icon-comments
         Comment on the Movies
+    #MovieDetailContainer
     #MovieTableContainer
       #EmptyMessage{:style => "display:none;"}
+        -# We have an inline style here on purpose.
+        -# This way the 'EmptyMessage' is hidden on while the CSS is loading
         While it's possible there are no movies in this list, it's more likely there was an API error.
     
-    %script#TMPSearchControls{ :type => "text/javascript"}
+    %script#TMPSearchControls{ :type => "text/x-mustache-tmpl"}
       %span#ListType Movie List Type:
       %select#MovieList
-        / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
-        / If I'm wrong, please let me know.
+        -# Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
+        -# If I'm wrong, please let me know.
         %option{:value => 'box_office'} Box Office 
         %option{:value => 'current'} In Theaters
         %option{:value => 'opening'} Opening
@@ -34,8 +37,17 @@
 
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
 
-    %script#TMPMovieDetail{ :type => "text/javascript"}
-    %script#TMPMovieTable{ :type => "text/javascript"}
+    %script#TMPMovieComment{ :type => "text/x-mustache-tmpl"}
+      %p.text
+        {{attributes.ratings.text}}
+      %span.date
+        {{attributes.ratings.text}}
+
+    %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
+      .movie_detail_column
+      %ul.movie_comment_column
+      
+    %script#TMPMovieTable{ :type => "text/x-mustache-tmpl"}
       %tr.header_row
         %th.title 
           %a{:href => '#'} 
@@ -62,11 +74,13 @@
             %i.icon-chevron-down
             %i.icon-chevron-up
 
-    %script#TMPMovieRows{ :type => "text/javascript"}
+    %script#TMPMovieRows{ :type => "text/x-mustache-tmpl"}
       %td.title
-        %img.poster_thumbnail{:src => "{{attributes.posters.thumbnail}}", :title => "thumbnail"}
+        %a.display_comments{:href => "#"}
+          %img.poster_thumbnail{:src => "{{attributes.posters.thumbnail}}", :title => "thumbnail"}
         .summary_holder
-          %h4.title {{attributes.title}} ({{attributes.mpaa_rating}}, {{attributes.runtime}} Mins)
+          %a.display_comments{:href => "#"}
+            %h4.title {{attributes.title}} ({{attributes.mpaa_rating}}, {{attributes.runtime}} Mins)
           .critics_consensus {{attributes.critics_consensus}}
       %td.freshness
         / If we have a rating, we should use one of our icons
@@ -86,7 +100,9 @@
           {{/has_score}}
 
       %td.opening_day {{attributes.release_dates.theater}}
-      %td.comment_count {{attributes.comment_count}}
+      %td.comment_count{:style => "font-weight:bold;"}
+        %a.display_comments{:href => "#"}
+          View Comments ( {{attributes.comment_count}} )
 
     :javascript
       var _gaq = _gaq || [];

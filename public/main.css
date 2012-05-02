@@ -102,6 +102,12 @@ th.asc i.icon-chevron-up{
   width: 25px;
 }
 
+.movie_detail_column{
+}
+
+.movie_comment_column{
+}
+
 .next_week_link{
   float: right;
 }
@@ -156,6 +162,17 @@ th.comment_count{
 
 #LoadingImage{
   display: none;
+}
+
+#MovieDetails{
+}
+
+#MovieDetailContainer{
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-top-radius: 3px;
+  border: solid 1px grey;
+  min-height: 100px;
 }
 
 #MovieTable{

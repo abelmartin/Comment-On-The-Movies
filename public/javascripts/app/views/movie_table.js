@@ -11,7 +11,7 @@ var MovieTableView = Backbone.View.extend({
               'applyNewSort');
 
     this.collection = window.COTM.movies;
-    this.collection.bind('all', this.render);
+    this.collection.bind('reset', this.render);
 
     //We'll create a property that's also a Backbone Model.
     //This way we'll get the events when we change the table's sort.
@@ -74,7 +74,7 @@ var MovieTableView = Backbone.View.extend({
         var row = new MovieTableRowView({model: movie});
         $(row_holder).append( $( row.render().$el ) );
       });
-      that.$el.append( $(row_holder).html() );
+      that.$el.append( $(row_holder).children() );
     }
 
     // Now we'll hide loading image.
