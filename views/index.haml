@@ -22,7 +22,7 @@
       #EmptyMessage{:style => "display:none;"}
         While it's possible there are no movies in this list, it's more likely there was an API error.
     
-    %script#TMPSearchControls{ :type => "text/x-jquery-tmpl"}
+    %script#TMPSearchControls{ :type => "text/javascript"}
       %span#ListType Movie List Type:
       %select#MovieList
         / Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
@@ -34,7 +34,8 @@
 
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
 
-    %script#TMPMovieTable{ :type => "text/x-jquery-tmpl"}
+    %script#TMPMovieDetail{ :type => "text/javascript"}
+    %script#TMPMovieTable{ :type => "text/javascript"}
       %tr.header_row
         %th.title 
           %a{:href => '#'} 
@@ -61,7 +62,7 @@
             %i.icon-chevron-down
             %i.icon-chevron-up
 
-    %script#TMPMovieRows{ :type => "text/x-jquery-tmpl"}
+    %script#TMPMovieRows{ :type => "text/javascript"}
       %td.title
         %img.poster_thumbnail{:src => "{{attributes.posters.thumbnail}}", :title => "thumbnail"}
         .summary_holder
