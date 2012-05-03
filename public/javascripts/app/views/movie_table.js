@@ -66,7 +66,7 @@ var MovieTableView = Backbone.View.extend({
     else{
       $("#MovieTable").show();
       $("#EmptyMessage").hide();
-      COTM.logEvent("We recieved data from the last API call");
+      COTM.logEvent("We received data from the last API call");
       // We instantiate a new instance of the MovieRowView for each row.
       // You never want to append nodes to the DOM iteratively.
       // It's always best to insert them as one action.

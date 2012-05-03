@@ -3,3 +3,4 @@
 *.swn
 *.DS_Store
 my_api_key.rb
+Session.vim
