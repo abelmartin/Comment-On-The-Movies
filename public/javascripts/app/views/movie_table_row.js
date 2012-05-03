@@ -6,8 +6,8 @@ var MovieTableRowView = Backbone.View.extend({
   template: $("#TMPMovieRows").html(),
 
   initialize: function(){
-    _.bindAll(this, 
-              'render', 
+    _.bindAll(this,
+              'render',
               'setMovieDetailState',
               'openMovieDetails');
     // this.model.bind('all', this.render);
@@ -16,12 +16,14 @@ var MovieTableRowView = Backbone.View.extend({
     return this;
   },
 
-  events:{ 
+  events:{
     "click a.display_comments" : "setMovieDetailState"
   },
 
   openMovieDetails: function(){
-    COTM.logEvent("Would have opened the detail view");
+    var vc = this.model.get("v_counter");
+    COTM.logEvent("Would have opened the detail view. VC:" + vc);
+    this.model.set({show_details:false, v_counter: vc + 1}, {silent:true});
   },
 
   setMovieDetailState: function(e){
