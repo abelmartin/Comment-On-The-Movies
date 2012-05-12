@@ -6,6 +6,7 @@ var MovieTableRowView = Backbone.View.extend({
   template: $("#TMPMovieRows").html(),
 
   initialize: function(){
+    this.model.off(); //Kills any previously bound callbacks
     _.bindAll(this,
               'render',
               'setMovieDetailState',
@@ -21,22 +22,25 @@ var MovieTableRowView = Backbone.View.extend({
   },
 
   openMovieDetails: function(){
-    COTM.logEvent("Would have opened the detail view.");
-    (new MovieDetailView({model:this.model})).render();
-    this.model.set({show_details:false}, {silent:true});
+    if(this.model.get("show_details")){
+      COTM.logEvent("SHOULD open the detail view.");
+      (new MovieDetailView({model:this.model})).render();
+      //this.model.set({show_details:false}, {silent:true});
+    }
   },
 
   setMovieDetailState: function(e){
     e.preventDefault();
     COTM.logEvent("Setting 'show_details'");
     if(this.model.get('show_details') === false){
+      COTM.logEvent("Current Movie Row Model", this.model);
       this.model.set({show_details: true});
     }
   },
 
   render: function(){
 
-    // This uses the compiled tempate for our rendering
+    // This uses the compiled template for our rendering
     this.$el.html( $.mustache( this.template, this.model ) );
 
     if(COTM.movies.indexOf(this.model) % 2 === 1){

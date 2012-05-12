@@ -15,19 +15,22 @@ var MovieDetailView = Backbone.View.extend({
   },
 
   closeDetails: function(e){
+    COTM.logEvent("CLOSING movie detail view");
     e.preventDefault();
     this.model.set({show_details: false});
   },
 
   selfDestruct: function(){
+    COTM.logEvent("DESTROYING movie detail view");
     if(this.model.get('show_details') === false){
+      this.model.off('change:show_details', this.selfDestruct);
       this.remove();
     }
   },
 
   render: function(){
 
-    // This uses the compiled tempate for our rendering
+    // This uses the compiled template for our rendering
     this.$el.html( $.mustache( this.template, this.model ) );
 
     return this;
