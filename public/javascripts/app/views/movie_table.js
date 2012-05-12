@@ -71,6 +71,7 @@ var MovieTableView = Backbone.View.extend({
       // You never want to append nodes to the DOM iteratively.
       // It's always best to insert them as one action.
       _.each(that.collection.models, function(movie){
+        movie.off(); //Kills all bound callbacks
         var row = new MovieTableRowView({model: movie});
         $(row_holder).append( $( row.render().$el ) );
       });

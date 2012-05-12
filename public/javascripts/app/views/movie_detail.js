@@ -4,29 +4,31 @@ var MovieDetailView = Backbone.View.extend({
   template: $("#TMPMovieDetails").html(),
 
   initialize: function(){
-    _.bindAll(this, 'render', 'rowAction');
-    this.model.bind('all', this.render);
-
+    _.bindAll(this, 'render', 'closeDetails', 'selfDestruct');
+    this.model.bind('change:show_details', this.selfDestruct);
+    $("#MovieDetailContainer").append(this.$el);
     return this;
   },
 
   events:{ 
-    "click td" : "rowAction"
+    "click a.close" : "closeDetails"
   },
 
-  rowAction: function(e){
-    alert("You Double-Clicked on the row for '" + 
-          this.model.get("title") + "'!");
+  closeDetails: function(e){
+    e.preventDefault();
+    this.model.set({show_details: false});
+  },
+
+  selfDestruct: function(){
+    if(this.model.get('show_details') === false){
+      this.remove();
+    }
   },
 
   render: function(){
 
     // This uses the compiled tempate for our rendering
     this.$el.html( $.mustache( this.template, this.model ) );
-
-    if(COTM.movies.indexOf(this.model) % 2 === 1){
-      this.$el.addClass('alt');
-    }
 
     return this;
   }

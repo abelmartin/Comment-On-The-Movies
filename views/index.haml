@@ -45,6 +45,9 @@
 
     %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
       .movie_detail_column
+        Hello!  I'm {{attributes.title}}
+        %br/
+        %a.close{href: "#"} Close
       %ul.movie_comment_column
       
     %script#TMPMovieTable{ :type => "text/x-mustache-tmpl"}
@@ -138,6 +141,7 @@
                                
     / [3] Views                
     %script{:src => "javascripts/app/views/list_controls.js"}
+    %script{:src => "javascripts/app/views/movie_detail.js"}
     %script{:src => "javascripts/app/views/movie_table_row.js"}
     %script{:src => "javascripts/app/views/movie_table.js"}
 

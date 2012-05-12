@@ -21,15 +21,17 @@ var MovieTableRowView = Backbone.View.extend({
   },
 
   openMovieDetails: function(){
-    var vc = this.model.get("v_counter");
-    COTM.logEvent("Would have opened the detail view. VC:" + vc);
-    this.model.set({show_details:false, v_counter: vc + 1}, {silent:true});
+    COTM.logEvent("Would have opened the detail view.");
+    (new MovieDetailView({model:this.model})).render();
+    this.model.set({show_details:false}, {silent:true});
   },
 
   setMovieDetailState: function(e){
     e.preventDefault();
     COTM.logEvent("Setting 'show_details'");
-    this.model.set({show_details: true});
+    if(this.model.get('show_details') === false){
+      this.model.set({show_details: true});
+    }
   },
 
   render: function(){
