@@ -12,8 +12,7 @@ var CommentOnTheMovies = Backbone.Router.extend({
   },
 
   debugOn: function(){
-
-    //We don't attempt to debug unless the app want to AND the broswer supports 'console' logging.
+    //We don't attempt to debug unless the app want to AND the browser supports 'console' logging.
     return (this.debug && (typeof console  !== "undefined"));
   },
 
@@ -22,7 +21,7 @@ var CommentOnTheMovies = Backbone.Router.extend({
     //Nothing happens unless debugging is turned on.
     if(this.debugOn()){
 
-      // Every event logs it's datestamp
+      // Every event logs it's date stamp
       if(typeof ev === 'string'){
         console.log( (new Date()).toTimeString() + " - CURRENT EVENT: " + ev);
       }
@@ -32,9 +31,16 @@ var CommentOnTheMovies = Backbone.Router.extend({
         console.log(obj);
       }
 
-      // Just a nice terminiating line.
+      // Just a nice terminating line.
       console.log("-----");
     }
+  },
+
+  closeAllDetails: function(){
+    COTM.movies.each(function(mov){
+      mov.trigger("closeView");
+    });
+    this.logEvent("We cleared out the view states");
   },
 
   start: function(){
@@ -69,6 +75,7 @@ var CommentOnTheMovies = Backbone.Router.extend({
 
   list: function(list_name){
     // This lets us update the movie table view
+    COTM.closeAllDetails();
     this.logEvent("EVENT: We're loading a new list: " + list_name);
     this.movies.list = list_name;
     this.movies.fetch();

@@ -18,7 +18,7 @@
       %a{:href => "/"}
         %i.icon-comments
         Comment on the Movies
-    #MovieDetailContainer
+    #MovieDetails
     #MovieTableContainer
       #EmptyMessage{:style => "display:none;"}
         -# We have an inline style here on purpose.
@@ -140,7 +140,10 @@
     %script{:src => "javascripts/app/collections/movies.js"}
     %script{:src => "javascripts/app/collections/comments.js"}
                                
-    / [3] Views                
+    / [3] Views 
+    / This extension allows us to close views cleanly.
+    %script{:src => "javascripts/app/views/view_extension.js"}
+
     %script{:src => "javascripts/app/views/list_controls.js"}
     %script{:src => "javascripts/app/views/movie_detail.js"}
     %script{:src => "javascripts/app/views/movie_table_row.js"}

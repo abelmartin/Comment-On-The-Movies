@@ -6,36 +6,29 @@ var MovieTableRowView = Backbone.View.extend({
   template: $("#TMPMovieRows").html(),
 
   initialize: function(){
-    this.model.off(); //Kills any previously bound callbacks
+    //Kills any previously bound callbacks
+    this.model.off();
+
+    //We'll maintain the context of "this" in the following methods
     _.bindAll(this,
               'render',
-              'setMovieDetailState',
               'openMovieDetails');
-    // this.model.bind('all', this.render);
-    this.model.bind('change:show_details', this.openMovieDetails);
-
-    return this;
+    this.model.bind('openView', this.openMovieDetails);
   },
 
   events:{
-    "click a.display_comments" : "setMovieDetailState"
+    "click a.display_comments" : "openMovieDetails"
   },
 
-  openMovieDetails: function(){
-    if(this.model.get("show_details")){
-      COTM.logEvent("SHOULD open the detail view.");
-      (new MovieDetailView({model:this.model})).render();
-      //this.model.set({show_details:false}, {silent:true});
+  openMovieDetails: function(e){
+    if (e) {
+      e.preventDefault();
     }
-  },
+    COTM.logEvent("CLOSING all possible views");
+    COTM.closeAllDetails();
 
-  setMovieDetailState: function(e){
-    e.preventDefault();
-    COTM.logEvent("Setting 'show_details'");
-    if(this.model.get('show_details') === false){
-      COTM.logEvent("Current Movie Row Model", this.model);
-      this.model.set({show_details: true});
-    }
+    COTM.logEvent("SHOULD open the detail view.");
+    (new MovieDetailView({model:this.model})).render();
   },
 
   render: function(){

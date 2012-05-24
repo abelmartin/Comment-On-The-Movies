@@ -1,13 +1,10 @@
 var MovieDetailView = Backbone.View.extend({
-  id: "MovieDetails",
-
   template: $("#TMPMovieDetails").html(),
 
   initialize: function(){
-    _.bindAll(this, 'render', 'closeDetails', 'selfDestruct');
-    this.model.bind('change:show_details', this.selfDestruct);
-    $("#MovieDetailContainer").append(this.$el);
-    return this;
+    _.bindAll(this, 'render', 'close', 'closeDetails');
+    this.model.bind('closeView',this.close);
+    $("#MovieDetails").append(this.$el);
   },
 
   events:{ 
@@ -15,17 +12,17 @@ var MovieDetailView = Backbone.View.extend({
   },
 
   closeDetails: function(e){
-    COTM.logEvent("CLOSING movie detail view");
     e.preventDefault();
-    this.model.set({show_details: false});
+    this.close();
   },
 
-  selfDestruct: function(){
-    COTM.logEvent("DESTROYING movie detail view");
-    if(this.model.get('show_details') === false){
-      this.model.off('change:show_details', this.selfDestruct);
-      this.remove();
-    }
+  beforeClose: function(){
+    COTM.logEvent("ABOUT TO CLOSE movie detail view");
+    this.model.off('closeView', this.close);
+  },
+
+  afterClose: function(){
+    COTM.logEvent("CLOSED movie detail view");
   },
 
   render: function(){
