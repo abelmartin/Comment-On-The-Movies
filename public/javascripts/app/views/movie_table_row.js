@@ -4,7 +4,7 @@ var MovieTableRowView = Backbone.View.extend({
   className: "movie_row",
 
   template: $("#TMPMovieRows").html(),
-  
+
   freshnessTemplate: $("#TMPFreshness").html(),
 
   initialize: function(){

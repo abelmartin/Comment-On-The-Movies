@@ -42,7 +42,7 @@
       %img.movie_poster{:src => "{{attributes.posters.detailed}}", :style => 'display:block; float:left; width:270px;'}
       .details{:style => 'width:400px; margin-left:25px; float:left;'}
         %h3.js-title Comments for {{attributes.title}} ({{attributes.mpaa_rating}})
-        %ul.movie-comment-column
+      %ul.movie-comment-column
       %br{:style => 'clear:both;'}/
       %a.js-close{href: "#"} Close
 
@@ -58,10 +58,14 @@
           %i.icon-trash
 
     %script#TMPMovieCommentForm{ :type => "text/x-mustache-tmpl"}
-      %p.text
-        {{attributes.ratings.text}}
-      %span.date
-        {{attributes.ratings.text}}
+      %form#NewComment
+        %h4 Did you see this movie?
+        %input{:type => 'radio', :name => 'sawMovie', :value => '0', :checked => 'checked'}No
+        %input{:type => 'radio', :name => 'sawMovie', :value => '1'}Yes
+        %h4 What did you think?
+        %textarea.js-new-comment-text
+        %br/
+        %input.js-create-comment{:type => 'submit', :value => 'Add Comment'}
 
     %script#TMPMovieTable{ :type => "text/x-mustache-tmpl"}
       %tr.header_row
@@ -161,6 +165,7 @@
     %script{:src => "javascripts/app/views/view_extension.js"}
 
     %script{:src => "javascripts/app/views/list_controls.js"}
+    %script{:src => "javascripts/app/views/movie_comment.js"}
     %script{:src => "javascripts/app/views/movie_detail.js"}
     %script{:src => "javascripts/app/views/movie_table_row.js"}
     %script{:src => "javascripts/app/views/movie_table.js"}

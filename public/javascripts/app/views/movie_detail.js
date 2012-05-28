@@ -3,19 +3,27 @@ var MovieDetailView = Backbone.View.extend({
 
   freshnessTemplate: $("#TMPFreshness").html(),
 
+  movieCommentFormTemplate: $("#TMPMovieCommentForm").html(),
+
   initialize: function(){
     _.bindAll(this, 'render', 'close', 'closeDetails');
     this.model.bind('closeView',this.close);
     $("#MovieDetails").append(this.$el);
   },
 
-  events:{ 
-    "click a.js-close" : "closeDetails"
+  events:{
+    "click a.js-close" : "closeDetails",
+    "click .js-create-comment" : "createComment"
   },
 
   closeDetails: function(e){
     e.preventDefault();
     this.close();
+  },
+
+  createComment: function(e){
+    e.preventDefault();
+    COTM.logEvent("We created the comment");
   },
 
   beforeClose: function(){
@@ -32,6 +40,7 @@ var MovieDetailView = Backbone.View.extend({
     // This uses the compiled template for our rendering
     this.$el.html( $.mustache( this.template, this.model ) );
     $("h3.js-title", this.$el).after( $.mustache( this.freshnessTemplate, this.model ) );
+    $("ul.movie-comment-column", this.$el).before( $.mustache( this.movieCommentFormTemplate ) );
     // fetch the comment collection from the local store
     // render the views
     // append them to the dom
