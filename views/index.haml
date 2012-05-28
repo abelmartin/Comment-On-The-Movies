@@ -2,18 +2,18 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     #PoweredByDiv
-      Powered By 
+      Powered By
       %a#PoweredByLink{:href => "http://developer.rottentomatoes.com/", :target => '_blank'}
     %title Comment on the Movies
     %link{:href => "http://github.com/necolas/normalize.css", :media => "screen", :rel => "stylesheet"}/
-    %link{:href => "main.css", :media => "screen", :rel => "stylesheet"}/
-    %link{:href => "font-awesome.css", :media => "screen", :rel => "stylesheet"}/
+    %link{:href => "stylesheets/main.css", :media => "screen", :rel => "stylesheet"}/
+    %link{:href => "stylesheets/font-awesome.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %a{:href=>"https://github.com/abelmartin/Comment-On-The-Movies", :target=>"_blank"}
-      %img#Ribbon{:style=>"position: absolute; top: 0; right: 0; border: 0;", 
-          :src=>"https://a248.e.akamai.net/camo.github.com/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67", 
+      %img#Ribbon{:style=>"position: absolute; top: 0; right: 0; border: 0;",
+          :src=>"https://a248.e.akamai.net/camo.github.com/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67",
           :alt=>"Fork me on GitHub"}
-  
+
     %h1#PageTitle
       %a{:href => "/"}
         %i.icon-comments
@@ -24,87 +24,102 @@
         -# We have an inline style here on purpose.
         -# This way the 'EmptyMessage' is hidden on while the CSS is loading
         While it's possible there are no movies in this list, it's more likely there was an API error.
-    
+
     %script#TMPSearchControls{ :type => "text/x-mustache-tmpl"}
       %span#ListType Movie List Type:
       %select#MovieList
         -# Sinatra doesn't have the same form helpers that Rails does (AFAIK), so I'm putting together by hand here.
+        -# It's also not important enough to pulling a gem to handle this
         -# If I'm wrong, please let me know.
-        %option{:value => 'box_office'} Box Office 
+        %option{:value => 'box_office'} Box Office
         %option{:value => 'current'} In Theaters
         %option{:value => 'opening'} Opening
         %option{:value => 'upcoming'} Upcoming Movies
 
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
 
-    %script#TMPMovieComment{ :type => "text/x-mustache-tmpl"}
+    %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
+      %img.movie_poster{:src => "{{attributes.posters.detailed}}", :style => 'display:block; float:left; width:270px;'}
+      .details{:style => 'width:400px; margin-left:25px; float:left;'}
+        %h3.js-title Comments for {{attributes.title}} ({{attributes.mpaa_rating}})
+        %ul.movie-comment-column
+      %br{:style => 'clear:both;'}/
+      %a.js-close{href: "#"} Close
+
+    %script#TMPMovieComment{ :type => "text/x-mustace-tmpl"}
+      %li
+        .comment-text
+          %span.saw-the-movie
+            {{attributes.sawIt}}
+          %span.comment-date
+            {{attributes.date}}
+          {{attribtes.comments}}
+        %a{:href => '#'}
+          %i.icon-trash
+
+    %script#TMPMovieCommentForm{ :type => "text/x-mustache-tmpl"}
       %p.text
         {{attributes.ratings.text}}
       %span.date
         {{attributes.ratings.text}}
 
-    %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
-      .movie_detail_column
-        Hello!  I'm {{attributes.title}}
-        %br/
-        %a.close{href: "#"} Close
-      %ul.movie_comment_column
-      
     %script#TMPMovieTable{ :type => "text/x-mustache-tmpl"}
       %tr.header_row
-        %th.title 
-          %a{:href => '#'} 
+        %th.title
+          %a{:href => '#'}
             %i.icon-film
             Movie
             %i.icon-chevron-down
             %i.icon-chevron-up
-        %th.freshness 
-          %a{:href => '#'} 
+        %th.freshness
+          %a{:href => '#'}
             %i.icon-asterisk
             Freshness
             %i.icon-chevron-down
             %i.icon-chevron-up
-        %th.opening_day 
-          %a{:href => '#'} 
+        %th.opening_day
+          %a{:href => '#'}
             %i.icon-calendar
             Opening Day
             %i.icon-chevron-down
             %i.icon-chevron-up
-        %th.comment_count 
-          %a{:href => '#'} 
+        %th.comment_count
+          %a{:href => '#'}
             %i.icon-comments
             Comments
             %i.icon-chevron-down
             %i.icon-chevron-up
 
+    %script#TMPFreshness{ :type => "text/x-mustache-tmpl"}
+      / If we have a rating, we should use one of our icons
+      {{#attributes.ratings.critics_rating}}
+      %div{:class => "{{freshness_class}}"}
+      {{/attributes.ratings.critics_rating}}
+
+      / When there no rating number, the score is -1
+      %div.freshness_score
+        {{#has_score}}
+        {{attributes.ratings.critics_score}}%
+        {{attributes.ratings.critics_rating}}
+        {{/has_score}}
+
+        {{^has_score}}
+        Not Rated Yet
+        {{/has_score}}
+
     %script#TMPMovieRows{ :type => "text/x-mustache-tmpl"}
       %td.title
-        %a.display_comments{:href => "#"}
+        %a.js-display_comments{:href => "#"}
           %img.poster_thumbnail{:src => "{{attributes.posters.thumbnail}}", :title => "thumbnail"}
         .summary_holder
-          %a.display_comments{:href => "#"}
+          %a.js-display_comments{:href => "#"}
             %h4.title {{attributes.title}} ({{attributes.mpaa_rating}}, {{attributes.runtime}} Mins)
           .critics_consensus {{attributes.critics_consensus}}
       %td.freshness
-        / If we have a rating, we should use one of our icons
-        {{#attributes.ratings.critics_rating}}
-        %div{:class => "{{freshness_class}}"}
-        {{/attributes.ratings.critics_rating}}
-
-        / When there no rating number, the score is -1
-        %div.freshness_score
-          {{#has_score}}
-          {{attributes.ratings.critics_score}}
-          {{attributes.ratings.critics_rating}}
-          {{/has_score}}
-
-          {{^has_score}}
-          Not Rated Yet
-          {{/has_score}}
 
       %td.opening_day {{attributes.release_dates.theater}}
       %td.comment_count{:style => "font-weight:bold;"}
-        %a.display_comments{:href => "#"}
+        %a.js-display_comments{:href => "#"}
           View Comments ( {{attributes.comment_count}} )
 
     :javascript
@@ -113,8 +128,8 @@
       _gaq.push(['_trackPageview']);
 
       (function() {
-        var ga = document.createElement('script'); 
-        ga.type = 'text/javascript'; 
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
         ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
@@ -128,6 +143,7 @@
     %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"}
     %script{:src => "/javascripts/req/json2.js"}
     %script{:src => "/javascripts/req/store.js"}
+    %script{:src => "/javascripts/req/idbstore.js"}
     %script{:src => "/javascripts/req/jquery.mustache.js"}
 
     / The backbone app scripts
@@ -135,12 +151,12 @@
     %script{:src => "javascripts/app/models/sort_manager.js"}
     %script{:src => "javascripts/app/models/movie.js"}
     %script{:src => "javascripts/app/models/comment.js"}
-                               
-    / [2] Collections          
+
+    / [2] Collections
     %script{:src => "javascripts/app/collections/movies.js"}
     %script{:src => "javascripts/app/collections/comments.js"}
-                               
-    / [3] Views 
+
+    / [3] Views
     / This extension allows us to close views cleanly.
     %script{:src => "javascripts/app/views/view_extension.js"}
 

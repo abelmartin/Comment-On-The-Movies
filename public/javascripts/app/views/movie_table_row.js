@@ -4,6 +4,8 @@ var MovieTableRowView = Backbone.View.extend({
   className: "movie_row",
 
   template: $("#TMPMovieRows").html(),
+  
+  freshnessTemplate: $("#TMPFreshness").html(),
 
   initialize: function(){
     //Kills any previously bound callbacks
@@ -17,7 +19,7 @@ var MovieTableRowView = Backbone.View.extend({
   },
 
   events:{
-    "click a.display_comments" : "openMovieDetails"
+    "click a.js-display_comments" : "openMovieDetails"
   },
 
   openMovieDetails: function(e){
@@ -39,6 +41,9 @@ var MovieTableRowView = Backbone.View.extend({
     if(COTM.movies.indexOf(this.model) % 2 === 1){
       this.$el.addClass('alt');
     }
+
+    $("td.freshness", this.$el).append( $.mustache( this.freshnessTemplate, this.model ) );
+    // td.freshness
 
     return this;
   }

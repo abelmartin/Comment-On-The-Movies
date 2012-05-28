@@ -102,12 +102,6 @@ th.asc i.icon-chevron-up{
   width: 25px;
 }
 
-.movie_detail_column{
-}
-
-.movie_comment_column{
-}
-
 .next_week_link{
   float: right;
 }
@@ -165,6 +159,8 @@ th.comment_count{
 }
 
 #MovieDetails{
+  width: 700px;
+  border: 1px solid orange; /*Temporary*/
 }
 
 #MovieDetailContainer{

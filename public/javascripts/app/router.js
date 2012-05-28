@@ -3,7 +3,7 @@ var CommentOnTheMovies = Backbone.Router.extend({
   // This way we have one place to reference it.
   proxy_root: "/proxy",
 
-  debug: true,
+  useIndexedDb: false, //Just the initial value.  This gets set during "start()"
 
   helper: {
     getCommentCount: function(movie_id){
@@ -11,13 +11,15 @@ var CommentOnTheMovies = Backbone.Router.extend({
     }
   },
 
+  // This is something I do help debug complicated JS apps
+  debug: true,
+
   debugOn: function(){
     //We don't attempt to debug unless the app want to AND the browser supports 'console' logging.
     return (this.debug && (typeof console  !== "undefined"));
   },
 
   logEvent: function(ev, obj){
-
     //Nothing happens unless debugging is turned on.
     if(this.debugOn()){
 
@@ -36,6 +38,7 @@ var CommentOnTheMovies = Backbone.Router.extend({
     }
   },
 
+  // A convenience function to ensure all of the existing movies have closed their views.
   closeAllDetails: function(){
     COTM.movies.each(function(mov){
       mov.trigger("closeView");
@@ -54,6 +57,10 @@ var CommentOnTheMovies = Backbone.Router.extend({
 
     // The bound events will hand the rendering for us so we can simply instantiate.
     this.movie_table_view = new MovieTableView();
+
+    // Verify if the browser we're in supports IndexedDb
+    // var hasIDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+    // this.useIndexedDb = (typeof hasIDB === "object");
 
     //This kicks off the hash routing which really gives the app it's power.
     Backbone.history.start();
