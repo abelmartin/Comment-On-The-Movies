@@ -1,13 +1,13 @@
 var MovieTableView = Backbone.View.extend({
-  // Here we bind our view to the ID in the markup. 
+  // Here we bind our view to the ID in the markup.
   id: "MovieTable",
   tagName: "table",
   template: $("#TMPMovieTable").html(),
 
   initialize: function(options){
-    _.bindAll(this, 
-              'render', 
-              'changeSortAndDirection', 
+    _.bindAll(this,
+              'render',
+              'changeSortAndDirection',
               'applyNewSort');
 
     this.collection = window.COTM.movies;
@@ -30,7 +30,7 @@ var MovieTableView = Backbone.View.extend({
     e.preventDefault();
     parent_header = $(e.target).parents("th");
     COTM.logEvent("Clicked a header", parent_header);
-    parent_column = parent_header.attr('class'); 
+    parent_column = parent_header.attr('class');
     COTM.logEvent( parent_column );
     parent_column = $.trim( parent_column.replace(/asc|dsec/, '') );
     this.collection.sort_man.set({column: parent_column});
@@ -71,6 +71,8 @@ var MovieTableView = Backbone.View.extend({
       // You never want to append nodes to the DOM iteratively.
       // It's always best to insert them as one action.
       _.each(that.collection.models, function(movie){
+        commentCount = COTM.comments.filter(function(cmt){return movie.id === cmt.get('movieId')}).length
+        movie.set({commentCount: commentCount},{silent:true});
         var row = new MovieTableRowView({model: movie});
         $(row_holder).append( $( row.render().$el ) );
       });

@@ -55,7 +55,7 @@ var SortManager = Backbone.Model.extend({
   },
 
   comp_value: function(film){
-    var cur_col, srt_dir, ret_val; 
+    var cur_col, srt_dir, ret_val;
     cur_col = this.get('column');
     srt_dir = this.get('direction');
 
@@ -66,14 +66,14 @@ var SortManager = Backbone.Model.extend({
       case 'title':
         ret_val = film.get('title');
       break;
-      case 'comment_count':
-        ret_val = film.get('comment_count');
+      case 'commentCount':
+        ret_val = film.get('commentCount');
       break;
       default:
         ret_val = film.get('release_dates').theater;
       break;
     }
-    
+
     //If our direction is 'desc', then we need to reverse the direction.
     if(srt_dir === 'desc'){
       ret_val = this.reverse_comp_value(ret_val);

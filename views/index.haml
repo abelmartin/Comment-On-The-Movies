@@ -63,7 +63,7 @@
         %input{:type => 'radio', :name => 'sawMovie', :value => '0', :checked => 'checked'}No
         %input{:type => 'radio', :name => 'sawMovie', :value => '1'}Yes
         %h4 What did you think?
-        %textarea.js-new-comment-text
+        %textarea.js-new-comment-text{:name => 'commentText'}
         %br/
         %input.js-create-comment{:type => 'submit', :value => 'Add Comment'}
 
@@ -87,7 +87,7 @@
             Opening Day
             %i.icon-chevron-down
             %i.icon-chevron-up
-        %th.comment_count
+        %th.commentCount
           %a{:href => '#'}
             %i.icon-comments
             Comments
@@ -122,9 +122,9 @@
       %td.freshness
 
       %td.opening_day {{attributes.release_dates.theater}}
-      %td.comment_count{:style => "font-weight:bold;"}
+      %td.commentCount{:style => "font-weight:bold;"}
         %a.js-display_comments{:href => "#"}
-          View Comments ( {{attributes.comment_count}} )
+          View Comments ( {{attributes.commentCount}} )
 
     :javascript
       var _gaq = _gaq || [];

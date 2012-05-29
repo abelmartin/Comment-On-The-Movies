@@ -1,7 +1,7 @@
 var Comment = Backbone.Model.extend({
 
   defaults: {
-  	sawIt: false
+  	sawMovie: false
   },
 
   createGuid: function(){
@@ -18,8 +18,7 @@ var Comment = Backbone.Model.extend({
   	var newGuid = this.createGuid();
   	//Set the date and movie id for this comment
   	this.set({
-  	  date: new Date(),
-  	  movieId: options.movieId,
+  	  date: new Date()
   	});
   },
 
@@ -50,7 +49,8 @@ var Comment = Backbone.Model.extend({
 	      resp = store.get(model.id);
 	    break;
 	    case "create":
-	      model.set({id: function(){ return model.createGuid()}}, {silent:true} );
+        var newId = model.createGuid();
+	      model.set({id: newId}, {silent:true} );
 	      store.set(model.id, model);
 	      resp = model;
 	    break;

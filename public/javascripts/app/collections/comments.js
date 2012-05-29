@@ -1,10 +1,6 @@
 var Comments = Backbone.Collection.extend({
   model: Comment,
 
-  initialize: function(options){
-    this.moveId = options.movieId;
-  },
-
   sync: function(method, model, options){
    if(COTM.useIndexedDb){
      // Using IndexedDb via IDBWrapper.js
@@ -27,14 +23,6 @@ var Comments = Backbone.Collection.extend({
       // https://github.com/marcuswestin/store.js
       switch (method) {
        case "read":
-         var resp = [];
-         for (i=0; i<=localStorage.length-1; i++){
-           key = localStorage.key(i);
-           val = localStorage.getItem(key);
-           if(val.get('movieId') === this.movieId) {
-             resp.push(val);
-           };
-         }
       break;
 
       // Collections really don't use the rest of these methods

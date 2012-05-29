@@ -6,7 +6,7 @@ var MovieDetailView = Backbone.View.extend({
   movieCommentFormTemplate: $("#TMPMovieCommentForm").html(),
 
   initialize: function(){
-    _.bindAll(this, 'render', 'close', 'closeDetails');
+    _.bindAll(this, 'render', 'close', 'closeDetails', 'createComment');
     this.model.bind('closeView',this.close);
     $("#MovieDetails").append(this.$el);
   },
@@ -23,6 +23,16 @@ var MovieDetailView = Backbone.View.extend({
 
   createComment: function(e){
     e.preventDefault();
+    var formData = $('form#NewComment').serializeArray();
+    var cmt = new Comment({
+      //We need to relate the Comment to the movie
+      movieId: this.model.id,
+      //This lets us save boolean insetad of a string
+      sawMovie: formData[0].value === '1',
+      //Let's escape the text that we're saving.
+      text: escape(formData[1].value)
+    });
+    cmt.save();
     COTM.logEvent("We created the comment");
   },
 
