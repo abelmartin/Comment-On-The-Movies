@@ -16,11 +16,19 @@ body{
   width: 1000px;
 }
 
+br.clear{
+  clear: both;
+}
+
 h1{
   color: red;
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+h4{
+  margin-bottom: 5px;
 }
 
 html{
@@ -61,7 +69,7 @@ th{
 
 th a{
   display: block;
-  font-size: 20px; 
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -77,13 +85,50 @@ th.asc i.icon-chevron-up{
   display: inline-block;
 }
 
+td.commentCount{
+  font-weight: bold;
+}
+
+.details{
+  float: left;
+  margin-left: 25px;
+  width: 360px;
+}
+
+h3.js-title{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .freshness_score{
   margin-left: 30px;
   margin-top: 5px;
 }
 
+.js-close{
+  float: right;
+  font-size: 30px;
+}
+
 .movie_row.alt{
   background-color: #fbfbfb;
+}
+
+.movie-comment-column li{
+  border-bottom: solid 1px #999;
+  list-style-type: none;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.movie_poster{
+  display: block;
+  float: left;
+  width: 270px;
+}
+
+.movie-comment-column li.last{
+  border-bottom: none;
 }
 
 .rt_icon_fresh{
@@ -100,6 +145,17 @@ th.asc i.icon-chevron-up{
   float: left;
   height: 25px;
   width: 25px;
+}
+
+.sawMovie{
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
+ul.movie-comment-column{
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 .next_week_link{
@@ -138,6 +194,12 @@ th.comment_count{
   -webkit-border-top-right-radius: 3px;
   -moz-border-radius-topright: 3px;
   border-top-right-radius: 3px;
+}
+
+#commentText{
+  height: 50px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
 #DateSpan{

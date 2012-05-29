@@ -46,11 +46,19 @@ var MovieDetailView = Backbone.View.extend({
   },
 
   render: function(){
-
+    var that = this;
     // This uses the compiled template for our rendering
     this.$el.html( $.mustache( this.template, this.model ) );
     $("h3.js-title", this.$el).after( $.mustache( this.freshnessTemplate, this.model ) );
     $("ul.movie-comment-column", this.$el).before( $.mustache( this.movieCommentFormTemplate ) );
+    arrComments = COTM.comments.filter(function(cmt){return that.model.id === cmt.get('movieId')});
+    renderedComments = []
+    _(arrComments).each(function(cmt){
+      // renderedComments.push( (new MovieCommentView({model:cmt})).render().$el );
+      $("ul.movie-comment-column", this.$el).append((new MovieCommentView({model:cmt})).render().$el);
+    });
+
+    // $("ul.movie-comment-column", this.$el).append(renderedComments);
     // fetch the comment collection from the local store
     // render the views
     // append them to the dom

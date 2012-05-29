@@ -20,7 +20,7 @@
         Comment on the Movies
     #MovieDetails
     #MovieTableContainer
-      #EmptyMessage{:style => "display:none;"}
+      #EmptyMessage
         -# We have an inline style here on purpose.
         -# This way the 'EmptyMessage' is hidden on while the CSS is loading
         While it's possible there are no movies in this list, it's more likely there was an API error.
@@ -39,23 +39,28 @@
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
 
     %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
-      %img.movie_poster{:src => "{{attributes.posters.detailed}}", :style => 'display:block; float:left; width:270px;'}
-      .details{:style => 'width:400px; margin-left:25px; float:left;'}
+      %a.js-close{:href => "#"}
+        %i.icon-remove-circle
+      %img.movie_poster{:src => "{{attributes.posters.detailed}}"}
+      .details
         %h3.js-title Comments for {{attributes.title}} ({{attributes.mpaa_rating}})
-      %ul.movie-comment-column
-      %br{:style => 'clear:both;'}/
-      %a.js-close{href: "#"} Close
+        %ul.movie-comment-column
+      %br.clear/
 
     %script#TMPMovieComment{ :type => "text/x-mustace-tmpl"}
-      %li
-        .comment-text
-          %span.saw-the-movie
-            {{attributes.sawIt}}
-          %span.comment-date
-            {{attributes.date}}
-          {{attribtes.comments}}
-        %a{:href => '#'}
-          %i.icon-trash
+      .comment-text
+        %div.sawMovie
+          {{#attributes.sawMovie}}
+          %i.icon-eye-close
+          {{/attributes.sawMovie}}
+          {{^attributes.sawMovie}}
+          %i.icon-eye-open
+          {{/attributes.sawMovie}}
+        %div.comment-date
+          {{attributes.date}}
+          %a.js-delete{:href => '#'}
+            %i.icon-trash
+        {{attributes.text}}...and stuff!
 
     %script#TMPMovieCommentForm{ :type => "text/x-mustache-tmpl"}
       %form#NewComment
@@ -63,7 +68,7 @@
         %input{:type => 'radio', :name => 'sawMovie', :value => '0', :checked => 'checked'}No
         %input{:type => 'radio', :name => 'sawMovie', :value => '1'}Yes
         %h4 What did you think?
-        %textarea.js-new-comment-text{:name => 'commentText'}
+        %textarea#commentText.js-new-comment-text{:name => 'commentText'}
         %br/
         %input.js-create-comment{:type => 'submit', :value => 'Add Comment'}
 
@@ -122,7 +127,7 @@
       %td.freshness
 
       %td.opening_day {{attributes.release_dates.theater}}
-      %td.commentCount{:style => "font-weight:bold;"}
+      %td.commentCount
         %a.js-display_comments{:href => "#"}
           View Comments ( {{attributes.commentCount}} )
 
