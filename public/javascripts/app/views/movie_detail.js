@@ -38,6 +38,10 @@ var MovieDetailView = Backbone.View.extend({
     COTM.logEvent("We ADDED the comment to this movie's comment array");
     $("ul.movie-comment-column", this.$el).append((new MovieCommentView({model:cmt})).render().$el);
     COTM.logEvent("We ADDED the comment to this movie's comment list");
+
+    $("form#NewComment [name='sawMovie'][value='0']").attr('checked', 'checked');
+    $('form#NewComment #commentText').val('');
+    COTM.logEvent("We've RESET our form");
   },
 
   beforeClose: function(){
