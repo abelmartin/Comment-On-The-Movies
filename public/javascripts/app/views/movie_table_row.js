@@ -16,7 +16,9 @@ var MovieTableRowView = Backbone.View.extend({
     _.bindAll(this,
               'render',
               'openMovieDetails');
-    this.model.bind('openView', this.openMovieDetails);
+    this.model.on('openView', this.openMovieDetails);
+    this.model.get('comments').on('add', this.render);
+    this.model.get('comments').on('remove', this.render);
   },
 
   events:{

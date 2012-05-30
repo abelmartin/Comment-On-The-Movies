@@ -34,6 +34,10 @@ var MovieDetailView = Backbone.View.extend({
     });
     cmt.save();
     COTM.logEvent("We created the comment");
+    this.model.get('comments').add(cmt);
+    COTM.logEvent("We ADDED the comment to this movie's comment array");
+    $("ul.movie-comment-column", this.$el).append((new MovieCommentView({model:cmt})).render().$el);
+    COTM.logEvent("We ADDED the comment to this movie's comment list");
   },
 
   beforeClose: function(){
@@ -51,9 +55,9 @@ var MovieDetailView = Backbone.View.extend({
     this.$el.html( $.mustache( this.template, this.model ) );
     $("h3.js-title", this.$el).after( $.mustache( this.freshnessTemplate, this.model ) );
     $("ul.movie-comment-column", this.$el).before( $.mustache( this.movieCommentFormTemplate ) );
-    arrComments = COTM.comments.filter(function(cmt){return that.model.id === cmt.get('movieId')});
+    arrComments = this.model.get('comments');
     renderedComments = []
-    _(arrComments).each(function(cmt){
+    arrComments.each(function(cmt){
       // renderedComments.push( (new MovieCommentView({model:cmt})).render().$el );
       $("ul.movie-comment-column", this.$el).append((new MovieCommentView({model:cmt})).render().$el);
     });

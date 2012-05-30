@@ -72,8 +72,8 @@ var MovieTableView = Backbone.View.extend({
       // You never want to append nodes to the DOM iteratively.
       // It's always best to insert them as one action.
       _.each(that.collection.models, function(movie){
-        commentCount = COTM.comments.filter(function(cmt){return movie.id === cmt.get('movieId')}).length
-        movie.set({commentCount: commentCount},{silent:true});
+        cmts = COTM.comments.filter(function(cmt){return movie.id === cmt.get('movieId')})
+        movie.get('comments').add(cmts, {silent:true});
         var row = new MovieTableRowView({model: movie});
         $(row_holder).append( $( row.render().$el ) );
       });
