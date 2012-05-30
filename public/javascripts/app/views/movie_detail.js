@@ -1,4 +1,5 @@
 var MovieDetailView = Backbone.View.extend({
+
   template: $("#TMPMovieDetails").html(),
 
   freshnessTemplate: $("#TMPFreshness").html(),
@@ -29,8 +30,7 @@ var MovieDetailView = Backbone.View.extend({
       movieId: this.model.id,
       //This lets us save boolean insetad of a string
       sawMovie: formData[0].value === '1',
-      //Let's escape the text that we're saving.
-      text: escape(formData[1].value)
+      text: formData[1].value
     });
     cmt.save();
     COTM.logEvent("We created the comment");

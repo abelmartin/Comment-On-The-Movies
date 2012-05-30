@@ -16,9 +16,10 @@ var Comment = Backbone.Model.extend({
 
   initialize: function(options){
   	var newGuid = this.createGuid();
+    var date = new Date();
   	//Set the date and movie id for this comment
   	this.set({
-  	  date: new Date()
+  	  date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
   	});
   },
 

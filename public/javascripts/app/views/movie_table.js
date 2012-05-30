@@ -1,4 +1,5 @@
 var MovieTableView = Backbone.View.extend({
+
   // Here we bind our view to the ID in the markup.
   id: "MovieTable",
   tagName: "table",

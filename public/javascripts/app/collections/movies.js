@@ -1,4 +1,5 @@
 var Movies = Backbone.Collection.extend({
+
   //We default to the 'box_office' list
   list: 'box_office',
   sort_man: null,

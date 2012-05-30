@@ -1,4 +1,5 @@
 var Comments = Backbone.Collection.extend({
+
   model: Comment,
 
   sync: function(method, model, options){

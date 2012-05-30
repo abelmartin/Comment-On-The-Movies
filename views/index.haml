@@ -51,16 +51,17 @@
       .comment-text
         %div.sawMovie
           {{#attributes.sawMovie}}
-          %i.icon-eye-close
+          %i.icon-eye-open
           {{/attributes.sawMovie}}
           {{^attributes.sawMovie}}
-          %i.icon-eye-open
+          %i.icon-eye-close
           {{/attributes.sawMovie}}
         %div.comment-date
           {{attributes.date}}
           %a.js-delete{:href => '#'}
             %i.icon-trash
-        {{attributes.text}}...and stuff!
+        .clear
+          {{attributes.text}}
 
     %script#TMPMovieCommentForm{ :type => "text/x-mustache-tmpl"}
       %form#NewComment

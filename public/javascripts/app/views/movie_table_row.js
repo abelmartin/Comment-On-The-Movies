@@ -1,4 +1,5 @@
 var MovieTableRowView = Backbone.View.extend({
+
   tagName: "tr",
 
   className: "movie_row",

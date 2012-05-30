@@ -16,7 +16,7 @@ body{
   width: 1000px;
 }
 
-br.clear{
+.clear{
   clear: both;
 }
 
@@ -150,7 +150,7 @@ h3.js-title{
 .sawMovie{
   float: left;
   margin-right: 5px;
-  margin-top: 3px;
+  /*margin-top: 3px;*/
 }
 
 ul.movie-comment-column{
