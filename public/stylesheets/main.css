@@ -105,13 +105,13 @@ h3.js-title{
   margin-top: 5px;
 }
 
-.js-close{
-  float: right;
-  font-size: 30px;
-}
-
 .movie_row.alt{
   background-color: #fbfbfb;
+}
+
+.movie-comment-column{
+  height: 150px;
+  overflow-y: auto;
 }
 
 .movie-comment-column li{
@@ -221,8 +221,9 @@ th.comment_count{
 }
 
 #MovieDetails{
+  display: none;
   width: 700px;
-  border: 1px solid orange; /*Temporary*/
+  /*border: 1px solid orange; /*Temporary*/*/
 }
 
 #MovieDetailContainer{

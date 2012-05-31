@@ -26,6 +26,7 @@ var MovieTableRowView = Backbone.View.extend({
   },
 
   openMovieDetails: function(e){
+    var that = this;
     if (e) {
       e.preventDefault();
     }
@@ -34,6 +35,15 @@ var MovieTableRowView = Backbone.View.extend({
 
     COTM.logEvent("SHOULD open the detail view.");
     (new MovieDetailView({model:this.model})).render();
+
+    //We need to display the div before we call the lightbox.
+    $('#MovieDetails').show();
+
+    $.colorbox({
+      inline:true, href:'#MovieDetails',
+      innerWidth: '700px', onCleanup: function(){
+      that.model.trigger('closeView');
+    }});
   },
 
   render: function(){

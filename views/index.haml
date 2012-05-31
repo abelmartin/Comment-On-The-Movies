@@ -8,6 +8,7 @@
     %link{:href => "http://github.com/necolas/normalize.css", :media => "screen", :rel => "stylesheet"}/
     %link{:href => "stylesheets/main.css", :media => "screen", :rel => "stylesheet"}/
     %link{:href => "stylesheets/font-awesome.css", :media => "screen", :rel => "stylesheet"}/
+    %link{:href => "stylesheets/colorbox.css", :media => "screen", :rel => "stylesheet"}/
   %body
     %a{:href=>"https://github.com/abelmartin/Comment-On-The-Movies", :target=>"_blank"}
       %img#Ribbon{:style=>"position: absolute; top: 0; right: 0; border: 0;",
@@ -39,8 +40,6 @@
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
 
     %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
-      %a.js-close{:href => "#"}
-        %i.icon-remove-circle
       %img.movie_poster{:src => "{{attributes.posters.detailed}}"}
       .details
         %h3.js-title Comments for {{attributes.title}} ({{attributes.mpaa_rating}})
@@ -155,6 +154,7 @@
     %script{:src => "/javascripts/req/store.js"}
     %script{:src => "/javascripts/req/idbstore.js"}
     %script{:src => "/javascripts/req/jquery.mustache.js"}
+    %script{:src => "/javascripts/req/jquery.colorbox.js"}
 
     / The backbone app scripts
     / [1] Models

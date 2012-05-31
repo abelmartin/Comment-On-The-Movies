@@ -44,6 +44,7 @@ var MovieTableView = Backbone.View.extend({
   render: function(){
     var that = this;
     var sman = this.collection.sort_man;
+    var row_holder = this.make('div');
 
     //This resets the contents of the movie table
     this.$el.html( $.mustache( this.template ) );
@@ -56,12 +57,9 @@ var MovieTableView = Backbone.View.extend({
       }
     });
 
-    var row_holder = this.make('div');
-
     if( this.collection.isEmpty() ){
       $("#MovieTable").hide();
       $("#EmptyMessage").show();
-      var movie_date_label = $("#MovieDateRange :selected").html();
       COTM.logEvent("There was no data from the last API call");
     }
     else{

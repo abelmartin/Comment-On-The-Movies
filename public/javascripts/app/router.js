@@ -35,10 +35,10 @@ var CommentOnTheMovies = Backbone.Router.extend({
 
   // A convenience function to ensure all of the existing movies have closed their views.
   closeAllDetails: function(){
-    COTM.movies.each(function(mov){
-      mov.trigger("closeView");
-    });
-    this.logEvent("We cleared out the view states");
+    // COTM.movies.each(function(mov){
+    //   mov.trigger("closeView");
+    // });
+    // this.logEvent("We cleared out the view states");
   },
 
   start: function(){

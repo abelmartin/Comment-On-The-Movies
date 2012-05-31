@@ -8,17 +8,17 @@ var MovieDetailView = Backbone.View.extend({
 
   initialize: function(){
     _.bindAll(this, 'render', 'close', 'closeDetails', 'createComment');
-    this.model.bind('closeView',this.close);
+    this.model.on('closeView',this.close);
     $("#MovieDetails").append(this.$el);
   },
 
   events:{
-    "click a.js-close" : "closeDetails",
     "click .js-create-comment" : "createComment"
   },
 
   closeDetails: function(e){
     e.preventDefault();
+    $("#MovieDetails").hide();
     this.close();
   },
 
