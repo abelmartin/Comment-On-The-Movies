@@ -45,6 +45,7 @@ var MovieTableView = Backbone.View.extend({
     var that = this;
     var sman = this.collection.sort_man;
     var row_holder = this.make('div');
+    var allComments = new Comments();
 
     //This resets the contents of the movie table
     this.$el.html( $.mustache( this.template ) );
@@ -65,16 +66,31 @@ var MovieTableView = Backbone.View.extend({
     else{
       $("#MovieTable").show();
       $("#EmptyMessage").hide();
+
+      // If we're using local storage, it best to simply grab the collection of saved
+      for (i=0; i<=localStorage.length-1; i++){
+        //We use the localStorage.key() to get the keys,
+        //But the store.js get() to return a helpful json object
+        //In theory, we might have other objects stored in LS.
+        //We'll perform a simple check before adding it to our collection.
+        key = localStorage.key(i);
+        val = store.get(key);
+        if(typeof val.movieId !== "undefined" && val.movieId !== null){
+          allComments.add(val, {silent:true});
+        }
+      }
+
       COTM.logEvent("We received data from the last API call");
       // We instantiate a new instance of the MovieRowView for each row.
       // You never want to append nodes to the DOM iteratively.
       // It's always best to insert them as one action.
       _.each(that.collection.models, function(movie){
-        cmts = COTM.comments.filter(function(cmt){return movie.id === cmt.get('movieId')})
+        cmts = allComments.filter(function(cmt){return movie.id === cmt.get('movieId')});
         movie.get('comments').add(cmts, {silent:true});
         var row = new MovieTableRowView({model: movie});
         $(row_holder).append( $( row.render().$el ) );
       });
+
       that.$el.append( $(row_holder).children() );
     }
 

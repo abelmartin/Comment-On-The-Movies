@@ -47,22 +47,6 @@ var CommentOnTheMovies = Backbone.Router.extend({
     // We'll instantiate the collections of movies that we'll be binding events to.
     this.movies = new Movies();
 
-    // If we're using local storage, it best to simply grab the collection of saved
-    this.comments = new Comments();
-    this.logEvent("");
-    for (i=0; i<=localStorage.length-1; i++){
-      //We use the localStorage.key() to get the keys,
-      //But the store.js get() to return a helpful json object
-      //In theory, we might have other objects stored in LS.
-      //We'll perform a simple check before adding it to our collection.
-      key = localStorage.key(i);
-      val = store.get(key);
-      if(typeof val.movieId !== "undefined" && val.movieId !== null){
-        this.comments.add(val, {silent:true});
-      }
-    }
-    this.comments
-
     // We instantiate & call render() because the controls view only gets rendered once.
     this.list_controls_view = new ListControlsView().render();
 
