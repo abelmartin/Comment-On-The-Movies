@@ -60,7 +60,7 @@ var MovieDetailView = Backbone.View.extend({
     var arrComments;
     // This uses the compiled template for our rendering
     this.$el.html( $.mustache( this.template, this.model ) );
-    $("h3.js-title", this.$el).after( $.mustache( this.freshnessTemplate, this.model ) );
+    $(".rating", this.$el).append( $.mustache( this.freshnessTemplate, this.model ) );
     $("ul.movie-comment-column", this.$el).before( $.mustache( this.movieCommentFormTemplate ) );
     arrComments = this.model.get('comments');
     arrComments.each(function(cmt){

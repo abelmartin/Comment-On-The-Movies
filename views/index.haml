@@ -40,9 +40,11 @@
       %img#LoadingImage{:src => '/images/ajax-loader.gif', :alt => 'loading...'}
 
     %script#TMPMovieDetails{ :type => "text/x-mustache-tmpl"}
-      %img.movie_poster{:src => "{{attributes.posters.detailed}}"}
+      %h3.js-title.clear.headline Comments for {{attributes.title}}
+      .poster-and-rating
+        .rating
+        %img.movie_poster{:src => "{{attributes.posters.detailed}}"}
       .details
-        %h3.js-title Comments for {{attributes.title}} ({{attributes.mpaa_rating}})
         %ul.movie-comment-column
       %br.clear/
 
@@ -64,7 +66,7 @@
 
     %script#TMPMovieCommentForm{ :type => "text/x-mustache-tmpl"}
       %form#NewComment
-        %h4 Did you see this movie?
+        %h4{:style => 'margin-top: 0px;'} Did you see this movie?
         %input{:type => 'radio', :name => 'sawMovie', :value => '0', :checked => 'checked'}No
         %input{:type => 'radio', :name => 'sawMovie', :value => '1'}Yes
         %h4 What did you think?
