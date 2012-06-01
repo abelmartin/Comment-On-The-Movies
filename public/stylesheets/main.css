@@ -230,6 +230,15 @@ th.comment_count{
   margin-top: 15px;
 }
 
+#Footer{
+  margin: 20px 0px;
+  text-align: center;
+}
+
+#Footer p{
+  margin: 0px;
+}
+
 #LoadingImage{
   display: none;
 }
