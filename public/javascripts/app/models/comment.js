@@ -18,7 +18,7 @@ var Comment = Backbone.Model.extend({
   	var newGuid = this.createGuid();
     var date = new Date();
   	//Set the date and movie id for this comment
-    if(this.get('date') === null || this.get('date') === 'undefined'){
+    if(typeof this.get('date') === 'undefined'){
     	this.set({
     	  date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     	});
