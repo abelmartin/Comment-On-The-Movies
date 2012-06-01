@@ -105,12 +105,6 @@ h3.js-title{
   margin-top: 5px;
 }
 
-.rating{
-  font-weight: bold;
-  width: 170px;
-  margin: 0px auto;
-}
-
 .movie_row.alt{
   background-color: #fbfbfb;
 }
@@ -130,8 +124,8 @@ h3.headline{
 
 .poster-and-rating{
   float: left;
-  text-align: center;
-  width: 270px;
+  margin-left: 10px;
+  width: 280px;
 }
 
 .movie-comment-column li{
@@ -144,7 +138,7 @@ h3.headline{
 .movie_poster{
   display: block;
   margin: 0px auto 15px auto;
-  width: 245px;
+  width: 275px;
 }
 
 .movie-comment-column li.last{
