@@ -41,6 +41,7 @@ var MovieDetailView = Backbone.View.extend({
 
     $("form#NewComment [name='sawMovie'][value='0']").attr('checked', 'checked');
     $('form#NewComment #commentText').val('');
+    $('#commentText').focus();
     COTM.logEvent("We've RESET our form");
   },
 

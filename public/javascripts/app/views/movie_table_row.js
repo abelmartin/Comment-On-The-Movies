@@ -40,6 +40,8 @@ var MovieTableRowView = Backbone.View.extend({
     $('#MovieDetails').show();
 
     $.colorbox({
+      // transition: "none",
+      speed: 500,
       inline:true, href:'#MovieDetails',
       innerWidth: '700px', onCleanup: function(){
       that.model.trigger('closeView');
