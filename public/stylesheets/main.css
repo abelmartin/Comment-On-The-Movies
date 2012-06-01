@@ -137,6 +137,7 @@ h3.headline{
 
 .movie_poster{
   display: block;
+  height: 408px;
   margin: 0px auto 15px auto;
   width: 275px;
 }
