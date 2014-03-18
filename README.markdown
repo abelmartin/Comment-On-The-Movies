@@ -6,7 +6,7 @@
 
     jQuery 1.7.2
     Underscore 1.3.3
-    Backbone 1.9.2
+    Backbone 0.9.2
     Mustache 5
     Font-Awesome
     Sinatra 1.3.2
